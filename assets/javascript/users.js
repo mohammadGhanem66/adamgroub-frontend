@@ -1,6 +1,6 @@
 import { apiFetch, apiPostOrPut } from './apiHelper.js';
 const baseUrl = 'http://127.0.0.1:8000/api/';
-const serverUrl = 'http://127.0.0.1:8000/api/';
+const serverUrl = 'http://147.93.63.182/api/';
 const accessToken = localStorage.getItem('accessToken');
 const role = localStorage.getItem('role');
 if(!accessToken || accessToken == null || role == 0){

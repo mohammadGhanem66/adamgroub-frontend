@@ -1,5 +1,5 @@
 const baseUrl = 'http://127.0.0.1:8000/api/';
-const serverUrl = 'http://127.0.0.1:8000/api/';
+const serverUrl = 'http://147.93.63.182/api/';
 function handleLogin(event) {
     console.log("Login button clicked");
     event.preventDefault(); // Prevent form submission default behavior
