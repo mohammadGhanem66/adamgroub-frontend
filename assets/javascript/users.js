@@ -1,5 +1,6 @@
 import { apiFetch, apiPostOrPut } from './apiHelper.js';
-
+const baseUrl = 'http://127.0.0.1:8000/api/';
+const serverUrl = 'http://127.0.0.1:8000/api/';
 const accessToken = localStorage.getItem('accessToken');
 const role = localStorage.getItem('role');
 if(!accessToken || accessToken == null || role == 0){
@@ -9,7 +10,7 @@ if(!accessToken || accessToken == null || role == 0){
 }
 
 function fetchCustomers(){
-    const apiUrl = `http://127.0.0.1:8000/api/users`;
+    const apiUrl = serverUrl + `users`;
     apiFetch(apiUrl).then(data => { 
         console.log(data.users);
         displayCustomers(data.users);
@@ -80,7 +81,7 @@ window.deleteUser = function (element,id) {
         denyButtonText: `لا تحذف !`
       }).then(async (result) => {
         if (result.isConfirmed) {
-            const apiUrl = `http://127.0.0.1:8000/api/users/${id}`;
+            const apiUrl = serverUrl + `users/${id}`;
             try {
                 const response = await apiPostOrPut(apiUrl, 'DELETE', {});
                 console.log(response);
@@ -131,7 +132,7 @@ const restPasswordBTN = document.getElementById('restPasswordBTN');
 restPasswordBTN.addEventListener('click', async  function() {
     const newPassword = document.getElementById('newPassword').value;
     const userIdRestPassword = document.getElementById('userIdRestPassword').value;
-    const apiUrl = `http://127.0.0.1:8000/api/users/${userIdRestPassword}/reset-password`;
+    const apiUrl = serverUrl + `users/${userIdRestPassword}/reset-password`;
     const body = {
         password: newPassword
     };
@@ -164,12 +165,12 @@ attachFileBTN.addEventListener('click', async  function() {
     var apiUrl ="";
     const formData = new FormData();
     if(switchValue == 'Container'){
-        apiUrl = `http://127.0.0.1:8000/api/users/${userIdAttachFile}/containers`;
+        apiUrl = serverUrl + `users/${userIdAttachFile}/containers`;
         formData.append('file_path', selectedFile);
         formData.append('file_name', fileNameAttach);
         formData.append('type', containerType);
     }else {
-        apiUrl = `http://127.0.0.1:8000/api/users/${userIdAttachFile}/account-statments`;
+        apiUrl = serverUrl + `users/${userIdAttachFile}/account-statments`;
         formData.append('file_path', selectedFile);
         formData.append('file_name', fileNameAttach);
     }
@@ -224,7 +225,7 @@ function toggleContainerTypeDiv(isSwitchOn) {
 window.fetchUploadedFiles = async function (element,userId) {
     console.log("Fetching files for user ID:", userId);
     try {
-        const apiUrl ="http://127.0.0.1:8000/api/users/" + userId + "/uploaded-files";
+        const apiUrl = serverUrl + "users/" + userId + "/uploaded-files";
         apiFetch(apiUrl).then(data => { 
             console.log(data.files);
             displayFiles(data.files);
@@ -290,7 +291,7 @@ function getFileIcon(extension) {
 const createCustomerBTN = document.getElementById('createCustomerBTN');
 createCustomerBTN.addEventListener('click', async  function() {
     console.log("Create Customer Button Clicked");
-    const apiUrl = 'http://127.0.0.1:8000/api/users';
+    const apiUrl = serverUrl + 'users';
     const name = document.getElementById('customerName').value;
     const email = document.getElementById('customerEmail').value;
     const phone = document.getElementById('customerPhone').value;
