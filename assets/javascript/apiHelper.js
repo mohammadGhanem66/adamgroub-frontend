@@ -2,7 +2,7 @@ function getAuthToken() {
   return localStorage.getItem('accessToken');
 }
 function handleUnauthorized() {
-  window.location.href = 'login.html';
+  window.location.href = 'sign-in.html';
 }
 
 function apiFetch(url, options = {}) {
