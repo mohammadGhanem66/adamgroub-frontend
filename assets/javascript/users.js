@@ -286,3 +286,39 @@ function getFileIcon(extension) {
     };
     return fileIcons[extension] || "assets/img/icons/default-file-icon.png";
 }
+
+const createCustomerBTN = document.getElementById('createCustomerBTN');
+createCustomerBTN.addEventListener('click', async  function() {
+    console.log("Create Customer Button Clicked");
+    const apiUrl = 'http://127.0.0.1:8000/api/users';
+    const name = document.getElementById('customerName').value;
+    const email = document.getElementById('customerEmail').value;
+    const phone = document.getElementById('customerPhone').value;
+    const password = document.getElementById('customerPassword').value;
+    const address = document.getElementById('customerAddress').value;
+    const city = document.getElementById('customerCity').value;
+    const body = {
+        name: name,
+        email: email,
+        phone: phone,
+        password: password,
+        address: address,
+        city: city
+    };
+    try {
+        const response = await apiPostOrPut(apiUrl, 'POST', body);
+        console.log(response);
+        document.getElementById('customerName').value = '';
+        document.getElementById('customerEmail').value = '';
+        document.getElementById('customerPhone').value = '';
+        document.getElementById('customerPassword').value = '';
+        document.getElementById('customerAddress').value = '';
+        document.getElementById('customerCity').value = '';
+        Swal.fire("تم انشاء الزبون بنجاح", "تم انشاء الزبون بنجاح", "success");
+        window.location.reload();
+    } catch (error) {
+        console.error('Error :', error);
+        alert('Saver issue, contact support');
+    }
+
+});
