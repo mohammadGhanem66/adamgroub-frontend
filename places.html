@@ -152,7 +152,7 @@ td .dropdown-toggle {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="users.html">
+          <a class="nav-link " href="users.html">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>customer-support</title>
@@ -193,7 +193,7 @@ td .dropdown-toggle {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="pages/virtual-reality.html">
+          <a class="nav-link active" href="pages/virtual-reality.html">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>box-3d-50</title>
@@ -242,14 +242,12 @@ td .dropdown-toggle {
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 ">
-            <li class="breadcrumb-item text-sm ps-2"><a class="opacity-5 text-dark" href="javascript:;"> الزبائن</a></li>
+            <li class="breadcrumb-item text-sm ps-2"><a class="opacity-5 text-dark" href="javascript:;"> ألاماكن</a></li>
            </ol>
          </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 px-0" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
             <div class="input-group">
-                <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createCustomerModal">
-                <i class="fas fa-user-plus"></i> إضافة عميل -->
             </button>
             </div>
           </div>
@@ -273,9 +271,9 @@ td .dropdown-toggle {
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-              <h6 class="mb-0">الزبائن</h6>
-              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createCustomerModal">
-                <i class="fas fa-user-plus"></i> إضافة عميل
+              <h6 class="mb-0">ألاماكن</h6>
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createPlaceModal">
+                <i class="fas fa-user-plus"></i> إضافة مكان جديد
               </button>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
@@ -283,13 +281,13 @@ td .dropdown-toggle {
                 <table class="table align-items-center mb-0" >
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">الزبون</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">الاسم</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">العنوان</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">عدد الكونتينرز</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">الاعدادات</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">الوصف</th>
+                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">الاعدادات</th>
                      </tr>
                   </thead>
-                  <tbody id="customersTableBody">
+                  <tbody id="placesTableBody">
                   </tbody>
                 </table>
               </div>
@@ -316,151 +314,48 @@ td .dropdown-toggle {
       </footer>
     </div>
   </main>
-<!-- Rest Password Modal -->
-  <div class="modal fade" id="restPasswordModal" tabindex="-1" role="dialog" aria-labelledby="restPasswordModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="restPasswordModalLabel">أعادة تعين كلمة المرور</h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true" class="closeModal">&times;</span> 
-          </button>
-        </div>
-        <div class="modal-body">
-          <div>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">كلمة المرور الجديدة:</label>
-              <input type="text" class="form-control" id="newPassword" name="newPassword">
-            </div>
-            <input type="hidden" id="userIdRestPassword" name="userIdRestPassword">
-          </div>
-        </div>
-        <div class="modal-footer">
-           <button type="button" id="restPasswordBTN" class="btn btn-primary">حفظ</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="modal fade" id="attachFileModal" tabindex="-1" role="dialog" aria-labelledby="attachFileModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="attachFileModalLabel">إرفاق ملف</h5>
-          <span aria-hidden="true" class="closeAttachModal">&times;</span>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="fileTypeSwitch">نوع الملف:</label>
-            <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="fileTypeSwitch">
-              <label class="form-check-label" for="fileTypeSwitch">كشف حساب بنكي / حاوية</label>
-            </div>
-          </div>
-          <div class="form-group" id="containerTypeDiv">
-            <label for="recipient-name" class="col-form-label">نوع الكونتينر :</label>
-            <select class="form-select"  id="containerType" > 
-              <option selected> </option>
-              <option value="0">شحن كلي</option>
-              <option value="1">شحن جزئي</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">اسم الملف:</label>
-            <input type="text" class="form-control" id="fileNameAttach" name="fileNameAttach">
-          </div>
-          <div class="form-group mt-3">
-            <label class="col-form-label">إرفاق ملف:</label>
-            <div id="dropZone" class="drop-zone">
-              <p>اسحب الملف هنا أو اضغط لاختيار ملف</p>
-              <input type="file" id="attachFileInput" name="attachFile" hidden>
-            </div>
-            <div id="filePreview" class="mt-2 text-muted"></div>
-          </div>
-          <input type="hidden" id="fileId" name="fileId">
-          <input type="hidden" id="userIdAttachFile" name="userIdAttachFile">
-        </div>
-        <div class="modal-footer">
-          <button type="button" id="attachFileBTN" class="btn btn-primary">إرفاق</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-<!-- Modal for Displaying Uploaded Files -->
-<div class="modal fade" id="uploadedFilesModal" tabindex="-1" role="dialog" aria-labelledby="uploadedFilesModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="uploadedFilesModalLabel">الملفات المرفوعة</h5>
-        <span aria-hidden="true" class="closeUploadFilesModal">&times;</span>
-      </div>
-      <div class="modal-body">
-        <ul class="nav nav-tabs" id="fileTabs">
-          <li class="nav-item">
-            <a class="nav-link active" id="container-tab" data-bs-toggle="tab" href="#container-files">ملفات الحاويات</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="bank-tab" data-bs-toggle="tab" href="#bank-files">كشوف الحسابات البنكية</a>
-          </li>
-        </ul>
-        
-        <div class="tab-content mt-3">
-          <!-- Container Files -->
-          <div class="tab-pane fade show active" id="container-files">
-            <div class="file-list" id="containerFiles"></div>
-          </div>
+ 
 
-          <!-- Bank Statement Files -->
-          <div class="tab-pane fade" id="bank-files">
-            <div class="file-list" id="bankFiles"></div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-      </div>
-    </div>
-  </div>
-</div>
   
-  <!-- Create Customer Modal -->
-<div class="modal fade" id="createCustomerModal" tabindex="-1" aria-labelledby="createCustomerModalLabel" aria-hidden="true">
+  <!-- Create Place Modal -->
+<div class="modal fade" id="createPlaceModal" tabindex="-1" aria-labelledby="createPlaceModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="createCustomerModalLabel">إضافة عميل جديد</h5>
+              <h5 class="modal-title" id="createPlaceModalLabel">إضافة مكان جديد</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
               <div id="createCustomerForm">
                   <div class="mb-3">
                       <label for="customerName" class="form-label">الاسم</label>
-                      <input type="text" class="form-control" id="customerName" name="name" required>
+                      <input type="text" class="form-control" id="placeName" name="placeName" required>
                   </div>
                   <div class="mb-3">
-                      <label for="customerEmail" class="form-label">البريد الإلكتروني</label>
-                      <input type="email" class="form-control" id="customerEmail" name="email" required>
+                      <label for="customerEmail" class="form-label">المدينة</label>
+                      <input type="text" class="form-control" id="placeCity" name="placeCity" required>
                   </div>
                   <div class="mb-3">
-                      <label for="customerPhone" class="form-label">رقم الهاتف</label>
-                      <input type="text" class="form-control" id="customerPhone" name="phone" required>
+                      <label for="customerPhone" class="form-label">الدولة</label>
+                      <input type="text" class="form-control" id="placeCountry" name="placeCountry" required>
                   </div>
                   <div class="mb-3">
-                      <label for="customerPassword" class="form-label">كلمة المرور</label>
-                      <input type="password" class="form-control" id="customerPassword" name="password" required>
+                    <label for="customerPhone" class="form-label">اسم الصورة</label>
+                    <input type="text" class="form-control" id="fileNamePreview" name="fileNamePreview" required>
+                </div>
+                  <div class="form-group mt-3">
+                    <label class="col-form-label">إرفاق ملف:</label>
+                    <div id="dropZone" class="drop-zone">
+                      <p>اسحب الملف هنا أو اضغط لاختيار ملف</p>
+                      <input type="file" id="attachFileInput" name="attachFile" hidden>
+                    </div>
+                    <div id="filePreview" class="mt-2 text-muted"></div>
                   </div>
-                  <div class="mb-3">
-                      <label for="customerAddress" class="form-label">العنوان</label>
-                      <input type="text" class="form-control" id="customerAddress" name="address" required>
-                  </div>
-                  <div class="mb-3">
-                      <label for="customerCity" class="form-label">المدينة</label>
-                      <input type="text" class="form-control" id="customerCity" name="city" required>
-                  </div>
+
                   <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                      <button type="submit" id="createCustomerBTN" class="btn btn-primary">إضافة العميل</button>
+                      <button type="submit" id="createPlaceBTN" class="btn btn-primary">إضافة المكان</button>
                   </div>
                 </div>
           </div>
@@ -468,6 +363,40 @@ td .dropdown-toggle {
   </div>
 </div>
 
+  <!-- Edit Place Modal -->
+  <div class="modal fade" id="createPlaceModal" tabindex="-1" aria-labelledby="createPlaceModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createPlaceModalLabel">تعديل مكان </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="createCustomerForm">
+                    <div class="mb-3">
+                        <label for="customerName" class="form-label">الاسم</label>
+                        <input type="text" class="form-control" id="placeName" name="placeNameEdit" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customerEmail" class="form-label">المدينة</label>
+                        <input type="text" class="form-control" id="placeCity" name="placeCityEdit" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="customerPhone" class="form-label">الدولة</label>
+                        <input type="text" class="form-control" id="placeCountry" name="placeCountryEdit" required>
+                    </div>
+  
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                        <button type="submit" id="createPlaceBTN" class="btn btn-primary"> تعديل</button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  
   <!--   Core JS Files   -->
   <script src="assets/js/core/popper.min.js"></script>
   <script src="assets/js/core/bootstrap.min.js"></script>

@@ -10,6 +10,7 @@ fileInput.addEventListener('change', () => {
   const file = fileInput.files[0];
   if (file) {
     filePreview.textContent = `تم اختيار الملف: ${file.name}`;
+    //document.getElementById('fileNamePreview').value = file.name;
   }
 });
 
@@ -31,5 +32,6 @@ dropZone.addEventListener('drop', (e) => {
   if (file) {
     fileInput.files = e.dataTransfer.files;  // Assign the dropped file to the input
     filePreview.textContent = `تم اختيار الملف: ${file.name}`;
+    //document.getElementById('fileNamePreview').value = file.name;
   }
 });
