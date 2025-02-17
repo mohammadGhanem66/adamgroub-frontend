@@ -9,7 +9,7 @@ if(!accessToken || accessToken == null || role == 0){
     fetchPlaces();
 }
 function fetchPlaces() {
-    const apiUrl = baseUrl + 'places';
+    const apiUrl = serverUrl + 'places';
         apiFetch(apiUrl).then(data => { 
             console.log(data.places);
             displayPlaces(data.places);
@@ -94,7 +94,7 @@ createPlaceBTN.addEventListener('click', async  function() {
         Swal.fire('الرجاء اختيار صورة');
         return;
     }
-    var apiUrl = baseUrl + 'places';
+    var apiUrl = serverUrl + 'places';
     const formData = new FormData();
     formData.append('image_path', selectedFile);
     formData.append('image_name', fileNamePreview);
@@ -136,7 +136,7 @@ window.deletePlace = async function (element,placeId) {
         denyButtonText: `لا تحذف !`
       }).then(async (result) => {
         if (result.isConfirmed) {
-            const apiUrl = baseUrl + `places/${placeId}`;
+            const apiUrl = serverUrl + `places/${placeId}`;
             try {
                 const response = await apiPostOrPut(apiUrl, 'DELETE', {});
                 console.log(response);
