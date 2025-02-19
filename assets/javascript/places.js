@@ -91,6 +91,10 @@ createPlaceBTN.addEventListener('click', async  function() {
         Swal.fire('الرجاء اختيار صورة');
         return;
     }
+    if(placeName == '' || placeCity == '' || placeCountry == '') {
+        Swal.fire('الرجاء ادخال جميع البيانات');
+        return;
+    }
     var apiUrl = baseUrl + 'places';
     const formData = new FormData();
     formData.append('image_path', selectedFile);

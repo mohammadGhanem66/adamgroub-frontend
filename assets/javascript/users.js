@@ -133,6 +133,10 @@ restPasswordBTN.addEventListener('click', async  function() {
     const newPassword = document.getElementById('newPassword').value;
     const userIdRestPassword = document.getElementById('userIdRestPassword').value;
     const apiUrl = baseUrl + `users/${userIdRestPassword}/reset-password`;
+    if(newPassword == '') {
+        Swal.fire('الرجاء ادخال كلمة المرور الجديدة');
+        return;
+    }
     const body = {
         password: newPassword
     };
@@ -298,6 +302,10 @@ createCustomerBTN.addEventListener('click', async  function() {
     const password = document.getElementById('customerPassword').value;
     const address = document.getElementById('customerAddress').value;
     const city = document.getElementById('customerCity').value;
+    if(name == '' || email == '' || phone == '' || password == '' || address == '' || city == '') {
+        Swal.fire('الرجاء ادخال جميع البيانات');
+        return;
+    }
     const body = {
         name: name,
         email: email,

@@ -96,6 +96,10 @@ createAdBTN.addEventListener('click', async  function() {
         Swal.fire('الرجاء اختيار صورة');
         return;
     }
+    if(title == '' || description == '') {
+        Swal.fire('الرجاء ادخال العنوان والوصف');
+        return;
+    }
     const formData = new FormData();
     formData.append('image_path', selectedFile);
     formData.append('image_name', fileNamePreview);
