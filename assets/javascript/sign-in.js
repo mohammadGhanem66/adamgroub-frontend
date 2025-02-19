@@ -4,7 +4,7 @@ function handleLogin(event) {
     console.log("Login button clicked");
     event.preventDefault(); // Prevent form submission default behavior
 
-    const apiUrl = serverUrl + "login";
+    const apiUrl = baseUrl + "login";
 
     // Get input values
     const phone = document.getElementById("phoneNumer").value;
@@ -41,27 +41,24 @@ function handleLogin(event) {
 
             // Save token in localStorage
             localStorage.setItem("accessToken", data.access_token);
-            localStorage.setItem("role", data.is_admin);
+            localStorage.setItem("role", data.user.is_admin);
             localStorage.setItem("user", JSON.stringify(data.user)); // Save user data if needed
-            window.location.href = "index.html";
-            // switch (data.user.role.name) {
-            //     case "Admin":
-            //         window.location.href = "dashboard.html";
-            //         break;
-            //     case "Seller":
-            //         window.location.href = "index.html";
-            //         break;
-            //     default:
-            //         window.location.href = "login.html";
-            //         break;
-            // }
+            if(data.user.is_admin){
+                window.location.href = "index.html";
+            }else {
+                Swal.fire({
+                    title: "خطأ",
+                    text: "يجب تسجيل الدخول بحساب مسؤول",
+                    icon: "error"
+                });
+            }
         })
         .catch((error) => {
             console.error("Login error:", error);
 
             Swal.fire({
-                title: "Error",
-                text: error.message || "Invalid email or password. Please try again.",
+                title: "خطأ",
+                text:  "رقم الهاتف او كلمة المرور غير صحيحة",
                 icon: "error"
             });
         });

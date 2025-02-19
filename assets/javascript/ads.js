@@ -6,45 +6,50 @@ const role = localStorage.getItem('role');
 if(!accessToken || accessToken == null || role == 0){
     window.location.href = 'sign-in.html';
 }else {
-    fetchPlaces();
+    fetchAds();
 }
-function fetchPlaces() {
-    const apiUrl = baseUrl + 'places';
-        apiFetch(apiUrl).then(data => { 
-            console.log(data.places);
-            displayPlaces(data.places);
-        }).catch(error => {
-            console.error('Error fetching users:', error);
-        });
+function fetchAds() {
+    const apiUrl = baseUrl + 'ads';
+    apiFetch(apiUrl).then((data) => {
+        console.log(data.ads);
+        displayAds(data.ads);
+    });
 }
-function displayPlaces(places) {
-    const placesTableBody = document.getElementById('placesTableBody');
-    placesTableBody.innerHTML = '';
-    places.forEach(place => {
+function displayAds(ads) {
+    const adsTableBody = document.getElementById('adsTableBody');
+    adsTableBody.innerHTML = '';
+    ads.forEach((ad) => {
         const row = document.createElement('tr');
+        var publish ="";
+        var new_publish_value;
+        if(ad.is_published){
+            publish =" 🫣 اخفاء";
+            new_publish_value = 0;
+        }else {
+            publish=" ✍🏻 نشر";
+            new_publish_value = 1;
+        }
         row.innerHTML = `
-             <td>
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="${place.public_url}" class="avatar avatar-sm me-3 " alt="user1">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center" style="padding-right:0.25rem">
-                            <h6 class="mb-0 text-sm"> ${place.name}</h6>
-                            <p class="text-xs text-secondary mb-0"></p>
-                          </div>
-                        </div>
-                      </td>
-             <td>
-                <p class="text-xs font-weight-bold mb-0">${place.country}</p>
-                <p class="text-xs text-secondary mb-0">${place.city}</p>
-             </td>
-            <td class="align-middle text-center"><p class="text-xs font-weight-bold mb-0">${place.description}</p></td>
+            <td>
+                <div class="d-flex px-2 py-1">
+                    <div>
+                    <img src="${ad.public_url}" class="avatar avatar-sm me-3 " alt="user1">
+                    </div>
+                    <div class="d-flex flex-column justify-content-center" style="padding-right:0.25rem">
+                    <h6 class="mb-0 text-sm"> ${ad.title}</h6>
+                    <p class="text-xs text-secondary mb-0"></p>
+                    </div>
+                </div>
+            </td>
+            <td class="align-middle text-center">${ad.description}</td>
+            <td class="align-middle text-center">${ad.is_published ? 'نعم' : 'لأ'}</td>
             <td class="align-middle text-center">
                 <a href="javascript:;" class="text-secondary font-weight-bold text-xs dropdown-toggle">
                     <i class="fa fa-ellipsis-v"></i>
                 </a>
                 <div class="dropdown-content">
-                    <a href="javascript:deletePlace(this, ${place.id});">❌ حذف</a>
+                    <a href="javascript:deleteAd(this, ${ad.id});">❌ حذف</a>
+                    <a href="javascript:publishAd(this, ${ad.id});">${publish}</a>
                 </div>
             </td>
         `;
@@ -65,7 +70,7 @@ function displayPlaces(places) {
             dropdownContent.classList.add('show');
             }
         });
-        placesTableBody.appendChild(row);
+        adsTableBody.appendChild(row);
     });
 }
 
@@ -79,11 +84,11 @@ document.addEventListener('click', function (e) {
     });
 });
 
-const createPlaceBTN = document.getElementById('createPlaceBTN');
-createPlaceBTN.addEventListener('click', async  function() {
-    const placeName = document.getElementById('placeName').value;
-    const placeCity = document.getElementById('placeCity').value;
-    const placeCountry = document.getElementById('placeCountry').value;
+const createAdBTN = document.getElementById('createAdBTN');
+createAdBTN.addEventListener('click', async  function() {
+    const apiUrl = baseUrl + 'ads';
+    const title = document.getElementById('adName').value;
+    const description = document.getElementById('adDescription').value;
     const fileNamePreview = document.getElementById('fileNamePreview').value;
     const fileInput = document.getElementById('attachFileInput');
     const selectedFile = fileInput.files[0];
@@ -91,13 +96,11 @@ createPlaceBTN.addEventListener('click', async  function() {
         Swal.fire('الرجاء اختيار صورة');
         return;
     }
-    var apiUrl = baseUrl + 'places';
     const formData = new FormData();
     formData.append('image_path', selectedFile);
     formData.append('image_name', fileNamePreview);
-    formData.append('name', placeName);
-    formData.append('city', placeCity);
-    formData.append('country', placeCountry);
+    formData.append('title', title);
+    formData.append('description', description);
     const token = localStorage.getItem('accessToken');
     try {
         const response = await fetch(apiUrl, {
@@ -110,35 +113,36 @@ createPlaceBTN.addEventListener('click', async  function() {
         const result = await response.json();
         console.log(result);
         if (response.ok) {
-            document.getElementById('placeName').value = '';
-            document.getElementById('placeCity').value = '';
-            document.getElementById('placeCountry').value = '';
-            document.getElementById('fileNamePreview').value = '';
-            document.getElementById('filePreview').innerHTML = '';
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "تم انشاء المكان بنجاح",
+                title: "تم انشاء الاعلان بنجاح",
                 showConfirmButton: false,
                 timer: 1500
-            });
-            document.getElementById('closeCreateModal').click();
-            fetchPlaces();
+              });
+            document.getElementById('adName').value = '';
+            document.getElementById('adDescription').value = '';
+            document.getElementById('fileNamePreview').value = '';
+            document.getElementById('filePreview').innerHTML = '';
+            document.getElementById('closeAdsModal').click();
+            fetchAds();
          }
     } catch (error) {
         console.error('Error:', error);
     }
+
 });
-window.deletePlace = async function (element,placeId) {
-    console.log("Deleting place ID:", placeId);
+
+window.deleteAd = async function (element,id) {
+    console.log("Deleting ad ID:", id);
     Swal.fire({
-        title: "هل انت متاكد من حذف المكان ؟!",
+        title: "هل انت متاكد من حذف الاعلان ؟!",
         showDenyButton: true,
          confirmButtonText: "أحذف !",
         denyButtonText: `لا تحذف !`
       }).then(async (result) => {
         if (result.isConfirmed) {
-            const apiUrl = baseUrl + `places/${placeId}`;
+            const apiUrl = baseUrl + `ads/${id}`;
             try {
                 const response = await apiPostOrPut(apiUrl, 'DELETE', {});
                 console.log(response);
@@ -149,13 +153,32 @@ window.deletePlace = async function (element,placeId) {
             Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "تم حذف المكان بنجاح",
+                title: "تم حذف الاعلان بنجاح",
                 showConfirmButton: false,
                 timer: 1500
-            });
-            fetchPlaces();
+              });
+              fetchAds();
         } else if (result.isDenied) {
-          Swal.fire("لم يتم حذف المكان", "", "info");
+          Swal.fire("لم يتم حذف الاعلان", "", "info");
         }
       });
+}
+
+window.publishAd = async function (element, id) {
+    const apiUrl = baseUrl + `ads/${id}/publish`;
+    try {
+        const response = await apiPostOrPut(apiUrl, 'PATCH', {});
+        console.log(response);
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "تم تحديث حالة النشر بنجاح",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        fetchAds();
+    } catch (error) {
+        console.error('Error :', error);
+        alert('Saver issue, contact support');
+    }
 }

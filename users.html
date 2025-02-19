@@ -123,7 +123,7 @@ td .dropdown-toggle {
   <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-end me-3 rotate-caret" id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute start-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href="index.html" target="_blank">
+      <a class="navbar-brand m-0" href="index.html">
         <img src="assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
         <span class="me-1 font-weight-bold">لوحة التحكم</span>
       </a>
@@ -173,7 +173,7 @@ td .dropdown-toggle {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="pages/billing.html">
+          <a class="nav-link " href="ads.html">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>credit-card</title>
@@ -193,7 +193,7 @@ td .dropdown-toggle {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="pages/virtual-reality.html">
+          <a class="nav-link " href="places.html">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>box-3d-50</title>
@@ -230,7 +230,7 @@ td .dropdown-toggle {
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text me-1">تسجيل الدخول</span>
+            <span class="nav-link-text me-1">تسجيل الخروج</span>
           </a>
         </li>
       </ul>
@@ -459,7 +459,7 @@ td .dropdown-toggle {
                       <input type="text" class="form-control" id="customerCity" name="city" required>
                   </div>
                   <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                      <button type="button" id="closeCreateModal" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
                       <button type="submit" id="createCustomerBTN" class="btn btn-primary">إضافة العميل</button>
                   </div>
                 </div>

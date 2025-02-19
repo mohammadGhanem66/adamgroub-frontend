@@ -10,7 +10,7 @@ if(!accessToken || accessToken == null || role == 0){
 }
 
 function fetchCustomers(){
-    const apiUrl = serverUrl + `users`;
+    const apiUrl = baseUrl + `users`;
     apiFetch(apiUrl).then(data => { 
         console.log(data.users);
         displayCustomers(data.users);
@@ -81,7 +81,7 @@ window.deleteUser = function (element,id) {
         denyButtonText: `لا تحذف !`
       }).then(async (result) => {
         if (result.isConfirmed) {
-            const apiUrl = serverUrl + `users/${id}`;
+            const apiUrl = baseUrl + `users/${id}`;
             try {
                 const response = await apiPostOrPut(apiUrl, 'DELETE', {});
                 console.log(response);
@@ -95,8 +95,8 @@ window.deleteUser = function (element,id) {
                 title: "تم حذف الزبون بنجاح",
                 showConfirmButton: false,
                 timer: 1500
-              });
-              window.location.reload();
+            });
+            fetchCustomers();
         } else if (result.isDenied) {
           Swal.fire("لم يتم حذف الزبون", "", "info");
         }
@@ -132,7 +132,7 @@ const restPasswordBTN = document.getElementById('restPasswordBTN');
 restPasswordBTN.addEventListener('click', async  function() {
     const newPassword = document.getElementById('newPassword').value;
     const userIdRestPassword = document.getElementById('userIdRestPassword').value;
-    const apiUrl = serverUrl + `users/${userIdRestPassword}/reset-password`;
+    const apiUrl = baseUrl + `users/${userIdRestPassword}/reset-password`;
     const body = {
         password: newPassword
     };
@@ -165,12 +165,12 @@ attachFileBTN.addEventListener('click', async  function() {
     var apiUrl ="";
     const formData = new FormData();
     if(switchValue == 'Container'){
-        apiUrl = serverUrl + `users/${userIdAttachFile}/containers`;
+        apiUrl = baseUrl + `users/${userIdAttachFile}/containers`;
         formData.append('file_path', selectedFile);
         formData.append('file_name', fileNameAttach);
         formData.append('type', containerType);
     }else {
-        apiUrl = serverUrl + `users/${userIdAttachFile}/account-statments`;
+        apiUrl = baseUrl + `users/${userIdAttachFile}/account-statments`;
         formData.append('file_path', selectedFile);
         formData.append('file_name', fileNameAttach);
     }
@@ -225,7 +225,7 @@ function toggleContainerTypeDiv(isSwitchOn) {
 window.fetchUploadedFiles = async function (element,userId) {
     console.log("Fetching files for user ID:", userId);
     try {
-        const apiUrl = serverUrl + "users/" + userId + "/uploaded-files";
+        const apiUrl = baseUrl + "users/" + userId + "/uploaded-files";
         apiFetch(apiUrl).then(data => { 
             console.log(data.files);
             displayFiles(data.files);
@@ -291,7 +291,7 @@ function getFileIcon(extension) {
 const createCustomerBTN = document.getElementById('createCustomerBTN');
 createCustomerBTN.addEventListener('click', async  function() {
     console.log("Create Customer Button Clicked");
-    const apiUrl = serverUrl + 'users';
+    const apiUrl = baseUrl + 'users';
     const name = document.getElementById('customerName').value;
     const email = document.getElementById('customerEmail').value;
     const phone = document.getElementById('customerPhone').value;
@@ -315,8 +315,15 @@ createCustomerBTN.addEventListener('click', async  function() {
         document.getElementById('customerPassword').value = '';
         document.getElementById('customerAddress').value = '';
         document.getElementById('customerCity').value = '';
-        Swal.fire("تم انشاء الزبون بنجاح", "تم انشاء الزبون بنجاح", "success");
-        window.location.reload();
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "تم انشاء الزبون بنجاح",
+            showConfirmButton: false,
+            timer: 1500
+        });
+        document.getElementById('closeCreateModal').click();
+        fetchCustomers();
     } catch (error) {
         console.error('Error :', error);
         alert('Saver issue, contact support');

@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <title>
-    أدم جروب | ألاماكن
+    أدم جروب | ألاعلانات
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -173,7 +173,7 @@ td .dropdown-toggle {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="ads.html">
+          <a class="nav-link active" href="ads.html">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>credit-card</title>
@@ -193,7 +193,7 @@ td .dropdown-toggle {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="places.html">
+          <a class="nav-link" href="places.html">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>box-3d-50</title>
@@ -271,9 +271,9 @@ td .dropdown-toggle {
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
-              <h6 class="mb-0">ألاماكن</h6>
-              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createPlaceModal">
-                <i class="fas fa-user-plus"></i> إضافة مكان جديد
+              <h6 class="mb-0">الاعلانات</h6>
+              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAdModal">
+                <i class="fas fa-user-plus"></i> إضافة اعلان جديد
               </button>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
@@ -282,12 +282,12 @@ td .dropdown-toggle {
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">الاسم</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">العنوان</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">الوصف</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">هل تم نشره ؟</th>
                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">الاعدادات</th>
                      </tr>
                   </thead>
-                  <tbody id="placesTableBody">
+                  <tbody id="adsTableBody">
                   </tbody>
                 </table>
               </div>
@@ -318,27 +318,23 @@ td .dropdown-toggle {
  
 
   
-  <!-- Create Place Modal -->
-<div class="modal fade" id="createPlaceModal" tabindex="-1" aria-labelledby="createPlaceModalLabel" aria-hidden="true">
+  <!-- Create Ads Modal -->
+<div class="modal fade" id="createAdModal" tabindex="-1" aria-labelledby="createAdModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="createPlaceModalLabel">إضافة مكان جديد</h5>
+              <h5 class="modal-title" id="createAdModalLabel">إضافة أعلان جديد</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
               <div id="createCustomerForm">
                   <div class="mb-3">
-                      <label for="customerName" class="form-label">الاسم</label>
-                      <input type="text" class="form-control" id="placeName" name="placeName" required>
+                      <label for="customerName" class="form-label">اسم</label>
+                      <input type="text" class="form-control" id="adName" name="adName" required>
                   </div>
                   <div class="mb-3">
-                      <label for="customerEmail" class="form-label">المدينة</label>
-                      <input type="text" class="form-control" id="placeCity" name="placeCity" required>
-                  </div>
-                  <div class="mb-3">
-                      <label for="customerPhone" class="form-label">الدولة</label>
-                      <input type="text" class="form-control" id="placeCountry" name="placeCountry" required>
+                      <label for="customerEmail" class="form-label">الوصف</label>
+                      <input type="text" class="form-control" id="adDescription" name="adDescription" required>
                   </div>
                   <div class="mb-3">
                     <label for="customerPhone" class="form-label">اسم الصورة</label>
@@ -354,8 +350,8 @@ td .dropdown-toggle {
                   </div>
 
                   <div class="modal-footer">
-                      <button type="button" id="closeCreateModal" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                      <button type="submit" id="createPlaceBTN" class="btn btn-primary">إضافة المكان</button>
+                      <button type="button" id="closeAdsModal" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                      <button type="submit" id="createAdBTN" class="btn btn-primary">إضافة الاعلان</button>
                   </div>
                 </div>
           </div>
@@ -404,7 +400,7 @@ td .dropdown-toggle {
   <script src="assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="assets/js/plugins/fullcalendar.min.js"></script>
   <script src="assets/js/plugins/chartjs.min.js"></script>
-  <script type="module" src="assets/javascript/places.js"></script>
+  <script type="module" src="assets/javascript/ads.js"></script>
   <script type="module" src="assets/javascript/filedropzone.js"></script>
 
   <!-- Github buttons -->
