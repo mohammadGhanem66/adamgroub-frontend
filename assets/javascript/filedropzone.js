@@ -9,8 +9,9 @@ dropZone.addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', () => {
   const file = fileInput.files[0];
   if (file) {
+    console.log("file 1");
     filePreview.textContent = `تم اختيار الملف: ${file.name}`;
-    //document.getElementById('fileNamePreview').value = file.name;
+    document.getElementById('fileNamePreview').value = file.name.split('.').slice(0, -1).join('.');
   }
 });
 
@@ -30,8 +31,9 @@ dropZone.addEventListener('drop', (e) => {
 
   const file = e.dataTransfer.files[0];
   if (file) {
+    console.log("file 2");
     fileInput.files = e.dataTransfer.files;  // Assign the dropped file to the input
     filePreview.textContent = `تم اختيار الملف: ${file.name}`;
-    //document.getElementById('fileNamePreview').value = file.name;
+    document.getElementById('fileNamePreview').value = file.name.split('.').slice(0, -1).join('.');
   }
 });

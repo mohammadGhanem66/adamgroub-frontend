@@ -4,7 +4,7 @@ function handleLogin(event) {
     console.log("Login button clicked");
     event.preventDefault(); // Prevent form submission default behavior
 
-    const apiUrl = serverUrl + "login";
+    const apiUrl = baseUrl + "login";
 
     // Get input values
     const phone = document.getElementById("phoneNumer").value;

@@ -9,7 +9,7 @@ if(!accessToken || accessToken == null || role == 0){
     fetchPlaces();
 }
 function fetchPlaces() {
-    const apiUrl = serverUrl + 'places';
+    const apiUrl = baseUrl + 'places';
         apiFetch(apiUrl).then(data => { 
             console.log(data.places);
             displayPlaces(data.places);
@@ -95,7 +95,7 @@ createPlaceBTN.addEventListener('click', async  function() {
         Swal.fire('الرجاء ادخال جميع البيانات');
         return;
     }
-    var apiUrl = serverUrl + 'places';
+    var apiUrl = baseUrl + 'places';
     const formData = new FormData();
     formData.append('image_path', selectedFile);
     formData.append('image_name', fileNamePreview);
@@ -142,7 +142,7 @@ window.deletePlace = async function (element,placeId) {
         denyButtonText: `لا تحذف !`
       }).then(async (result) => {
         if (result.isConfirmed) {
-            const apiUrl = serverUrl + `places/${placeId}`;
+            const apiUrl = baseUrl + `places/${placeId}`;
             try {
                 const response = await apiPostOrPut(apiUrl, 'DELETE', {});
                 console.log(response);

@@ -10,7 +10,7 @@ if(!accessToken || accessToken == null || role == 0){
 }
 
 function fetchCustomers(){
-    const apiUrl = serverUrl + `users`;
+    const apiUrl = baseUrl + `users`;
     apiFetch(apiUrl).then(data => { 
         console.log(data.users);
         displayCustomers(data.users);
@@ -81,7 +81,7 @@ window.deleteUser = function (element,id) {
         denyButtonText: `لا تحذف !`
       }).then(async (result) => {
         if (result.isConfirmed) {
-            const apiUrl = serverUrl + `users/${id}`;
+            const apiUrl = baseUrl + `users/${id}`;
             try {
                 const response = await apiPostOrPut(apiUrl, 'DELETE', {});
                 console.log(response);
@@ -132,7 +132,7 @@ const restPasswordBTN = document.getElementById('restPasswordBTN');
 restPasswordBTN.addEventListener('click', async  function() {
     const newPassword = document.getElementById('newPassword').value;
     const userIdRestPassword = document.getElementById('userIdRestPassword').value;
-    const apiUrl = serverUrl + `users/${userIdRestPassword}/reset-password`;
+    const apiUrl = baseUrl + `users/${userIdRestPassword}/reset-password`;
     if(newPassword == '') {
         Swal.fire('الرجاء ادخال كلمة المرور الجديدة');
         return;
@@ -155,28 +155,28 @@ restPasswordBTN.addEventListener('click', async  function() {
 const attachFileBTN = document.getElementById('attachFileBTN');
 attachFileBTN.addEventListener('click', async  function() {
     const userIdAttachFile = document.getElementById('userIdAttachFile').value;
-    const fileNameAttach = document.getElementById('fileNameAttach').value;
+    const fileNamePreview = document.getElementById('fileNamePreview').value;
     const containerType = document.getElementById('containerType').value;
     const fileTypeSwitch = document.getElementById('fileTypeSwitch');
     const switchValue = fileTypeSwitch.checked ? 'Container' : 'Bank Statement';
     console.log('Selected File Type:', switchValue);
     const fileInput = document.getElementById('attachFileInput');
     const selectedFile = fileInput.files[0];
-    if (!selectedFile || fileNameAttach == '') {
+    if (!selectedFile || fileNamePreview == '') {
         Swal.fire('الرجاء اختيار الملف وادخل اسم الملف');
         return;
     }
     var apiUrl ="";
     const formData = new FormData();
     if(switchValue == 'Container'){
-        apiUrl = serverUrl + `users/${userIdAttachFile}/containers`;
+        apiUrl = baseUrl + `users/${userIdAttachFile}/containers`;
         formData.append('file_path', selectedFile);
-        formData.append('file_name', fileNameAttach);
+        formData.append('file_name', fileNamePreview);
         formData.append('type', containerType);
     }else {
-        apiUrl = serverUrl + `users/${userIdAttachFile}/account-statments`;
+        apiUrl = baseUrl + `users/${userIdAttachFile}/account-statments`;
         formData.append('file_path', selectedFile);
-        formData.append('file_name', fileNameAttach);
+        formData.append('file_name', fileNamePreview);
     }
     const token = localStorage.getItem('accessToken');
     try {
@@ -192,9 +192,8 @@ attachFileBTN.addEventListener('click', async  function() {
         console.log(result);
         if (response.ok) {
             Swal.fire("تم ارفاق الملف", "تم ارفاق الملف بنجاح", "success");
-            document.getElementById('fileNameAttach').value = '';
+            document.getElementById('fileNamePreview').value = '';
             document.getElementById('attachFileInput').value = '';
-            document.getElementById('fileNameAttach').value = '';
             document.getElementById('filePreview').innerHTML = '';
         } else {
             console.error('Error:', result);
@@ -229,7 +228,7 @@ function toggleContainerTypeDiv(isSwitchOn) {
 window.fetchUploadedFiles = async function (element,userId) {
     console.log("Fetching files for user ID:", userId);
     try {
-        const apiUrl = serverUrl + "users/" + userId + "/uploaded-files";
+        const apiUrl = baseUrl + "users/" + userId + "/uploaded-files";
         apiFetch(apiUrl).then(data => { 
             console.log(data.files);
             displayFiles(data.files);
@@ -295,7 +294,7 @@ function getFileIcon(extension) {
 const createCustomerBTN = document.getElementById('createCustomerBTN');
 createCustomerBTN.addEventListener('click', async  function() {
     console.log("Create Customer Button Clicked");
-    const apiUrl = serverUrl + 'users';
+    const apiUrl = baseUrl + 'users';
     const name = document.getElementById('customerName').value;
     const email = document.getElementById('customerEmail').value;
     const phone = document.getElementById('customerPhone').value;

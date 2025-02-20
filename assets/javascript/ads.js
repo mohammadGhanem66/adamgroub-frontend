@@ -9,7 +9,7 @@ if(!accessToken || accessToken == null || role == 0){
     fetchAds();
 }
 function fetchAds() {
-    const apiUrl = serverUrl + 'ads';
+    const apiUrl = baseUrl + 'ads';
     apiFetch(apiUrl).then((data) => {
         console.log(data.ads);
         displayAds(data.ads);
@@ -86,7 +86,7 @@ document.addEventListener('click', function (e) {
 
 const createAdBTN = document.getElementById('createAdBTN');
 createAdBTN.addEventListener('click', async  function() {
-    const apiUrl = serverUrl + 'ads';
+    const apiUrl = baseUrl + 'ads';
     const title = document.getElementById('adName').value;
     const description = document.getElementById('adDescription').value;
     const fileNamePreview = document.getElementById('fileNamePreview').value;
@@ -146,7 +146,7 @@ window.deleteAd = async function (element,id) {
         denyButtonText: `لا تحذف !`
       }).then(async (result) => {
         if (result.isConfirmed) {
-            const apiUrl = serverUrl + `ads/${id}`;
+            const apiUrl = baseUrl + `ads/${id}`;
             try {
                 const response = await apiPostOrPut(apiUrl, 'DELETE', {});
                 console.log(response);
@@ -169,7 +169,7 @@ window.deleteAd = async function (element,id) {
 }
 
 window.publishAd = async function (element, id) {
-    const apiUrl = serverUrl + `ads/${id}/publish`;
+    const apiUrl = baseUrl + `ads/${id}/publish`;
     try {
         const response = await apiPostOrPut(apiUrl, 'PATCH', {});
         console.log(response);
