@@ -197,9 +197,9 @@ sendNoficationBTN.addEventListener('click', async  function() {
         const response = await apiPostOrPut(apiUrl, 'POST', body);
         document.getElementById('notificationSubject').value = '';
         document.getElementById('notificationBody').value = '';
-        document.getElementById('userList').selectedOptions.forEach((option) => {
-            option.selected = false;
-        });
+        // document.getElementById('userList').selectedOptions.forEach((option) => {
+        //     option.selected = false;
+        // });
         document.getElementById('userSelection').classList.add('d-none');
         Swal.fire({
             position: "top-end",
