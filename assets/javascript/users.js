@@ -193,7 +193,7 @@ sendNoficationBTN.addEventListener('click', async  function() {
     };
 
     try {
-        const apiUrl = serverUrl + '/user/notifications/send';
+        const apiUrl = serverUrl + 'user/notifications/send';
         const response = await apiPostOrPut(apiUrl, 'POST', body);
         document.getElementById('notificationSubject').value = '';
         document.getElementById('notificationBody').value = '';
