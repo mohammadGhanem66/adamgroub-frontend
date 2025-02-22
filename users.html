@@ -116,7 +116,8 @@ td .dropdown-toggle {
 }
 
   </style>
-  
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
 </head>
 
 <body class="g-sidenav-show rtl bg-gray-100">
@@ -274,10 +275,16 @@ td .dropdown-toggle {
           <div class="card mb-4">
             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
               <h6 class="mb-0">الزبائن</h6>
-              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createCustomerModal">
-                <i class="fas fa-user-plus"></i> إضافة عميل
-              </button>
+              <div class="d-flex gap-2">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createCustomerModal">
+                  <i class="fas fa-user-plus"></i> إضافة عميل
+                </button>
+                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#sendNotificationModal">
+                  <i class="fas fa-user-edit"></i> ارسال اشعارات
+                </button>
+              </div>
             </div>
+            
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0" >
@@ -468,6 +475,64 @@ td .dropdown-toggle {
   </div>
 </div>
 
+<!-- Send Notification Modal -->
+<div class="modal fade" id="sendNotificationModal" tabindex="-1" aria-labelledby="sendNotificationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sendNotificationModalLabel">إرسال إشعار</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="sendNotificationForm">
+          <!-- Notification Type Selection -->
+          <div class="mb-3">
+            <label class="form-label">اختر نوع الإشعار:</label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="notificationType" id="typeA" value="A" checked>
+                <label class="form-check-label" for="typeA">زبائن الشحن الكلي</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="notificationType" id="typeB" value="B">
+                <label class="form-check-label" for="typeB">زبائن الشحن الجزئي</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="notificationType" id="typeC" value="C">
+                <label class="form-check-label" for="typeC">اختر الزبون</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Selection (Visible only if C is chosen) -->
+          <div class="mb-3 d-none" id="userSelection">
+            <label for="userList" class="form-label">اختر الزبائن:</label>
+            <select class="form-select select2" id="userList" multiple>
+            </select>
+          </div>
+
+          <!-- Notification Subject -->
+          <div class="mb-3">
+            <label for="notificationSubject" class="form-label">الموضوع</label>
+            <input type="text" class="form-control" id="notificationSubject" required>
+          </div>
+
+          <!-- Notification Body -->
+          <div class="mb-3">
+            <label for="notificationBody" class="form-label">المحتوى</label>
+            <textarea class="form-control" id="notificationBody" rows="3" required></textarea>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+            <button type="submit"id="sendNoficationBTN" class="btn btn-primary">إرسال الإشعار</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
   <!--   Core JS Files   -->
   <script src="assets/js/core/popper.min.js"></script>
   <script src="assets/js/core/bootstrap.min.js"></script>
@@ -482,6 +547,46 @@ td .dropdown-toggle {
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+
+  <!-- Include jQuery & Select2 JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+  <!-- JavaScript to Handle the Toggle -->
+<script>
+    $(document).ready(function () {
+    // Initialize Select2 for dropdown
+    $(".select2").select2({
+      placeholder: "اختر الزبائن",
+      allowClear: true,
+      width: "100%",
+    });
+
+    // Handle show/hide of user selection
+    $("input[name='notificationType']").change(function () {
+      if ($("#typeC").is(":checked")) {
+        $("#userSelection").removeClass("d-none");
+      } else {
+        $("#userSelection").addClass("d-none");
+        $("#userList").val(null).trigger("change"); // Reset selection
+      }
+    });
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    const typeA = document.getElementById("typeA");
+    const typeB = document.getElementById("typeB");
+    const typeC = document.getElementById("typeC");
+    const userSelection = document.getElementById("userSelection");
+
+    function toggleUserSelection() {
+      userSelection.classList.toggle("d-none", !typeC.checked);
+    }
+
+    typeA.addEventListener("change", toggleUserSelection);
+    typeB.addEventListener("change", toggleUserSelection);
+    typeC.addEventListener("change", toggleUserSelection);
+  });
+</script>
 </body>
 
 </html>

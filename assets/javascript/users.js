@@ -14,8 +14,19 @@ function fetchCustomers(){
     apiFetch(apiUrl).then(data => { 
         console.log(data.users);
         displayCustomers(data.users);
+        fetchUsersDropDown(data.users);
     }).catch(error => {
         console.error('Error fetching users:', error);
+    });
+}
+function fetchUsersDropDown(customers){
+    const userList = document.getElementById('userList');
+    userList.innerHTML = '';
+    customers.forEach(customer => {
+        const option = document.createElement('option');
+        option.value = customer.id;
+        option.text = customer.name;
+        userList.add(option);
     });
 }
 function displayCustomers(customers) {
@@ -149,6 +160,58 @@ restPasswordBTN.addEventListener('click', async  function() {
             console.error('Error :', error);
             Swal.fire('Saver issue, contact support');
         }
+
+});
+
+const sendNoficationBTN = document.getElementById('sendNoficationBTN');
+sendNoficationBTN.addEventListener('click', async  function() {
+    console.log("sendNoficationBTN clicked");
+    const subject = document.getElementById('notificationSubject').value;
+    const message = document.getElementById('notificationBody').value;
+    const notificationType = document.querySelector('input[name="notificationType"]:checked').value;
+    let userIds = [];
+    if (notificationType === 'C') {
+        const selectedOptions = document.getElementById('userList').selectedOptions;
+        userIds = Array.from(selectedOptions).map(option => option.value);
+    }
+
+    // Validate required fields
+    if (!subject || !message) {
+        Swal.fire('الرجاء إدخال الموضوع والمحتوى');
+        return;
+    }
+
+    if (notificationType === 'C' && userIds.length === 0) {
+        Swal.fire('الرجاء اختيار الزبائن');
+        return;
+    }
+    const body = {
+        subject,
+        message,
+        notificationType,
+        user_ids: notificationType === 'C' ? userIds : []  // Send user_ids only if type C is selected
+    };
+
+    try {
+        const apiUrl = serverUrl + '/user/notifications/send';
+        const response = await apiPostOrPut(apiUrl, 'POST', body);
+        document.getElementById('notificationSubject').value = '';
+        document.getElementById('notificationBody').value = '';
+        document.getElementById('userList').selectedOptions.forEach((option) => {
+            option.selected = false;
+        });
+        document.getElementById('userSelection').classList.add('d-none');
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "تم إرسال الإشعار بنجاح",
+            showConfirmButton: false,
+            timer: 1500
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        Swal.fire('خطأ في الإرسال، الرجاء المحاولة مرة أخرى');
+    }
 
 });
 
