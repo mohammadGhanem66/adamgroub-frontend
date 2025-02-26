@@ -9,7 +9,7 @@ if(!accessToken || accessToken == null || role == 0){
     fetchAds();
 }
 function fetchAds() {
-    const apiUrl = serverUrl + 'ads';
+    const apiUrl = serverUrl + 'admin/ads';
     apiFetch(apiUrl).then((data) => {
         console.log(data.ads);
         displayAds(data.ads);
