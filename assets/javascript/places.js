@@ -83,6 +83,7 @@ const createPlaceBTN = document.getElementById('createPlaceBTN');
 createPlaceBTN.addEventListener('click', async  function() {
     const placeName = document.getElementById('placeName').value;
     const placeCity = document.getElementById('placeCity').value;
+    const placeDiscription = document.getElementById('placeDiscription').value;
     const placeCountry = document.getElementById('placeCountry').value;
     const fileNamePreview = document.getElementById('fileNamePreview').value;
     const fileInput = document.getElementById('attachFileInput');
@@ -102,6 +103,7 @@ createPlaceBTN.addEventListener('click', async  function() {
     formData.append('name', placeName);
     formData.append('city', placeCity);
     formData.append('country', placeCountry);
+    formData.append('description', placeDiscription);
     const token = localStorage.getItem('accessToken');
     try {
         const response = await fetch(apiUrl, {
@@ -120,7 +122,7 @@ createPlaceBTN.addEventListener('click', async  function() {
             document.getElementById('fileNamePreview').value = '';
             document.getElementById('filePreview').innerHTML = '';
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "تم انشاء المكان بنجاح",
                 showConfirmButton: false,
@@ -151,7 +153,7 @@ window.deletePlace = async function (element,placeId) {
                 alert('Saver issue, contact support');
             }
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "تم حذف المكان بنجاح",
                 showConfirmButton: false,

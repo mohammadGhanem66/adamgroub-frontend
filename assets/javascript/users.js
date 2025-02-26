@@ -101,7 +101,7 @@ window.deleteUser = function (element,id) {
                 alert('Saver issue, contact support');
             }
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "تم حذف الزبون بنجاح",
                 showConfirmButton: false,
@@ -202,7 +202,7 @@ sendNoficationBTN.addEventListener('click', async  function() {
         // });
         document.getElementById('userSelection').classList.add('d-none');
         Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: "تم إرسال الإشعار بنجاح",
             showConfirmButton: false,
@@ -386,7 +386,7 @@ createCustomerBTN.addEventListener('click', async  function() {
         document.getElementById('customerAddress').value = '';
         document.getElementById('customerCity').value = '';
         Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: "تم انشاء الزبون بنجاح",
             showConfirmButton: false,

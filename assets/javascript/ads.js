@@ -118,7 +118,7 @@ createAdBTN.addEventListener('click', async  function() {
         console.log(result);
         if (response.ok) {
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "تم انشاء الاعلان بنجاح",
                 showConfirmButton: false,
@@ -155,7 +155,7 @@ window.deleteAd = async function (element,id) {
                 alert('Saver issue, contact support');
             }
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "تم حذف الاعلان بنجاح",
                 showConfirmButton: false,
@@ -174,7 +174,7 @@ window.publishAd = async function (element, id) {
         const response = await apiPostOrPut(apiUrl, 'PATCH', {});
         console.log(response);
         Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: "تم تحديث حالة النشر بنجاح",
             showConfirmButton: false,
