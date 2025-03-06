@@ -82,6 +82,8 @@ window.displayCustomerInfo = function (element) {
     document.getElementById('changePassword').disabled = false;
     document.getElementById('editCustomer').disabled = false;
     document.getElementById('deleteCustomer').disabled = false;
+    document.getElementById('createContainerBTN').disabled = false;
+    document.getElementById('createBankStatmentBTN').disabled = false;
 
 }
 
@@ -158,6 +160,8 @@ window.openChangePasswordModal = function () {
     document.getElementById('changePassword').disabled = true;
     document.getElementById('editCustomer').disabled = true;
     document.getElementById('deleteCustomer').disabled = true;
+    document.getElementById('createContainerBTN').disabled = true;
+    document.getElementById('createBankStatmentBTN').disabled = true;
     document.getElementById('customerName').innerHTML = "<strong>الاسم:</strong> " + '-';
     document.getElementById('customerPhone').innerHTML = "<strong>الجوال:</strong> " + '-';
     document.getElementById('customerCity').innerHTML = "<strong>المدينة:</strong> " + '-';
