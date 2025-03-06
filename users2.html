@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <title>
+    أدم جروب | الزبائن
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+
+  <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Tajawal', sans-serif;
+        }
+        .dashboard-card {
+            border: 1px solid #d1c7a2;
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 16px;
+            height: 100%;
+        }
+        .btn-custom {
+            background-color: #d1c7a2;
+            color: #000;
+            border: none;
+            font-weight: bold;
+        }
+        .btn-custombtn {
+            background-color: #77d1bb;
+            color: #000;
+            border: none;
+            font-weight: bold;
+        }
+        .btn-custombtn2 {
+            background-color: #9e81eb;
+            color: #000;
+            border: none;
+            font-weight: bold;
+        }
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin-bottom: 6px;
+            border: 1px solid #d1c7a2;
+            background-color: #fff;
+            border-radius: 12px;
+        }
+        .file-icon {
+            width: 24px;
+            height: 24px;
+        }
+        .customer-list .customer-item {
+            background-color: #e0e0e0;
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        .customer-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        .btn-danger {
+            background-color: #c82333;
+        }
+        .info-box {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .drop-zone {
+  border: 2px dashed #6c757d;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.drop-zone:hover {
+  background-color: #f8f9fa;
+}
+.drop-zone.dragging {
+  background-color: #e2e6ea;
+}
+.file-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 10px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.file-item:hover {
+    background: #e9ecef;
+}
+
+.file-icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.file-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+
+.file-name {
+    font-weight: bold;
+}
+        
+</style>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+</head>
+
+<body class="g-sidenav-show rtl bg-gray-100">
+  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-end me-3 rotate-caret" id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute start-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href="index.html">
+        <img src="assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="me-1 font-weight-bold">لوحة التحكم</span>
+      </a>
+    </div>
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse px-0 w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link " href="index.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>shop </title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <g transform="translate(1716.000000, 291.000000)">
+                      <g transform="translate(0.000000, 148.000000)">
+                        <path class="color-background opacity-6" d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z"></path>
+                        <path class="color-background" d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text me-1">لوحة القيادة</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="users.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>customer-support</title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g transform="translate(-1717.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <g transform="translate(1716.000000, 291.000000)">
+                      <g transform="translate(1.000000, 0.000000)">
+                        <path class="color-background opacity-6" d="M45,0 L26,0 C25.447,0 25,0.447 25,1 L25,20 C25,20.379 25.214,20.725 25.553,20.895 C25.694,20.965 25.848,21 26,21 C26.212,21 26.424,20.933 26.6,20.8 L34.333,15 L45,15 C45.553,15 46,14.553 46,14 L46,1 C46,0.447 45.553,0 45,0 Z"></path>
+                        <path class="color-background" d="M22.883,32.86 C20.761,32.012 17.324,31 13,31 C8.676,31 5.239,32.012 3.116,32.86 C1.224,33.619 0,35.438 0,37.494 L0,41 C0,41.553 0.447,42 1,42 L25,42 C25.553,42 26,41.553 26,41 L26,37.494 C26,35.438 24.776,33.619 22.883,32.86 Z"></path>
+                        <path class="color-background" d="M13,28 C17.432,28 21,22.529 21,18 C21,13.589 17.411,10 13,10 C8.589,10 5,13.589 5,18 C5,22.529 8.568,28 13,28 Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text me-1">الزبائن</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="ads.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>credit-card</title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <g transform="translate(1716.000000, 291.000000)">
+                      <g transform="translate(453.000000, 454.000000)">
+                        <path class="color-background opacity-6" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z"></path>
+                        <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text me-1">الاعلانات</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="places.html">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>box-3d-50</title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g transform="translate(-2319.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <g transform="translate(1716.000000, 291.000000)">
+                      <g transform="translate(603.000000, 0.000000)">
+                        <path class="color-background" d="M22.7597136,19.3090182 L38.8987031,11.2395234 C39.3926816,10.9925342 39.592906,10.3918611 39.3459167,9.89788265 C39.249157,9.70436312 39.0922432,9.5474453 38.8987261,9.45068056 L20.2741875,0.1378125 L20.2741875,0.1378125 C19.905375,-0.04725 19.469625,-0.04725 19.0995,0.1378125 L3.1011696,8.13815822 C2.60720568,8.38517662 2.40701679,8.98586148 2.6540352,9.4798254 C2.75080129,9.67332903 2.90771305,9.83023153 3.10122239,9.9269862 L21.8652864,19.3090182 C22.1468139,19.4497819 22.4781861,19.4497819 22.7597136,19.3090182 Z"></path>
+                        <path class="color-background opacity-6" d="M23.625,22.429159 L23.625,39.8805372 C23.625,40.4328219 24.0727153,40.8805372 24.625,40.8805372 C24.7802551,40.8805372 24.9333778,40.8443874 25.0722402,40.7749511 L41.2741875,32.673375 L41.2741875,32.673375 C41.719125,32.4515625 42,31.9974375 42,31.5 L42,14.241659 C42,13.6893742 41.5522847,13.241659 41,13.241659 C40.8447549,13.241659 40.6916418,13.2778041 40.5527864,13.3472318 L24.1777864,21.5347318 C23.8390024,21.7041238 23.625,22.0503869 23.625,22.429159 Z"></path>
+                        <path class="color-background opacity-6" d="M20.4472136,21.5347318 L1.4472136,12.0347318 C0.953235098,11.7877425 0.352562058,11.9879669 0.105572809,12.4819454 C0.0361450918,12.6208008 6.47121774e-16,12.7739139 0,12.929159 L0,30.1875 L0,30.1875 C0,30.6849375 0.280875,31.1390625 0.7258125,31.3621875 L19.5528096,40.7750766 C20.0467945,41.0220531 20.6474623,40.8218132 20.8944388,40.3278283 C20.963859,40.1889789 21,40.0358742 21,39.8806379 L21,22.429159 C21,22.0503869 20.7859976,21.7041238 20.4472136,21.5347318 Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text me-1">ألاماكن</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " id="logoutBTN" href="">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center ms-2 d-flex align-items-center justify-content-center">
+              <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>document</title>
+                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                    <g transform="translate(1716.000000, 291.000000)">
+                      <g transform="translate(154.000000, 300.000000)">
+                        <path class="color-background opacity-6" d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z"></path>
+                        <path class="color-background" d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z"></path>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </div>
+            <span class="nav-link-text me-1">تسجيل الخروج</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg overflow-hidden">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 ">
+            <li class="breadcrumb-item text-sm ps-2"><a class="opacity-5 text-dark" href="javascript:;"> الزبائن</a></li>
+           </ol>
+         </nav>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 px-0" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group">
+                <!-- <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createCustomerModal">
+                <i class="fas fa-user-plus"></i> إضافة عميل -->
+            </button>
+            </div>
+          </div>
+          <ul class="navbar-nav me-auto ms-0 justify-content-end">
+            <!-- <li class="nav-item d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">تسجيل الدخول</span>
+              </a>
+            </li> -->
+            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4 mt-4">
+      <div class="row">
+        <!-- Right Sidebar - Customers List -->
+        <div class="col-md-3">
+            <h5 class="section-title">الزبائن</h5>
+            <div class="customer-list" id="customerList">
+                <div class="customer-item">
+                    <img src="assets/img/team-1.jpg" alt="profile">
+                    <div>
+                        <div>إسلام مطاوع</div>
+                        <small>0599123456</small>
+                    </div>
+                </div>
+                <div class="customer-item">
+                    <img src="assets/img/team-1.jpg" alt="profile">
+                    <div>
+                        <div>إسلام مطاوع</div>
+                        <small>0599123456</small>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Main Content - Split into 2 columns inside the main area -->
+        <div class="col-md-9">
+            <div class="row">
+                <!-- Customer Info Card -->
+                <div class="col-md-6">
+                    <div class="dashboard-card">
+                        <h5 class="section-title">معلومات الزبون</h5>
+                        <div class="row">
+                            <div class="col-8">
+                                <p id ="customerName"><strong>الاسم:</strong> - </p>
+                                <p id="customerPhone"><strong>الجوال:</strong> - </p>
+                                <p id="customerCity"><strong>المدينة:</strong> - </p>
+                                <p id="customerAddress"><strong>العنوان:</strong> - </p>
+                                <p id="containersCount"><strong>عدد الحاويات:</strong> - </p>
+                                <input type="hidden" id="customerId" name="customerId">
+                            </div>
+                            <div class="col-4 text-center">
+                                <img src="assets/img/team-3.jpg" class="img-fluid rounded-circle" alt="profile">
+                            </div>
+                        </div>
+                        <div class="mt-3 d-flex gap-2">
+                            <button onclick ="openChangePasswordModal()" id="changePassword" class="btn btn-warning" disabled>تعديل كلمة المرور</button>
+                            <button class="btn btn-primary" id="editCustomer" disabled>تعديل بيانات الزبون</button>
+                            <button onclick="deleteCustomer()" class="btn btn-danger" id="deleteCustomer" disabled>حذف الزبون وبياناته</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Statement Dialog/Panel -->
+                <div class="col-md-6">
+                    <div class="dashboard-card">
+                        <h5 class="section-title">كشف الحساب</h5>
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                          <img class="file-icon mt-5" src="https://cdn-icons-png.flaticon.com/512/732/732220.png" alt="excel">
+
+                        </div>
+                        <hr>
+                        <br>
+                        <br>
+                        <div class="mt-3 d-flex gap-2 mt-5">
+                          <button class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#attachFileModal"> اضافة كشف حساب جديد</button>
+                          <button class="btn btn-custombtn" data-bs-toggle="modal" data-bs-target="#createCustomerModal">اضافة زبون جديد</button>
+                          <button class="btn btn-custombtn2" data-bs-toggle="modal" data-bs-target="#sendNotificationModal">ارسال اشعارات</button>
+                        </div>
+
+                    </div>
+                </div>
+            
+                <div class="col-md-12 mt-5">
+                  <!-- File Section -->
+                  <div class="dashboard-card">
+                    <div class="info-box">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h6 class="section-title">حاويات الزبون</h6>
+                            <button class="btn btn-custom" data-bs-toggle="modal" data-bs-target="#attachFileModal2">إضافة حاوية جديدة</button>
+                        </div>
+                        <div class="file-list2" id = "containerFiles2">
+                        </div>
+                    </div>
+                  </div>
+
+                </div>
+
+            </div> <!-- End of row inside col-md-9 -->
+        </div> <!-- End of col-md-9 -->
+    </div>
+      <footer class="footer pt-3  mt-5" style="margin-top: 55vh !important;">
+        <div class="container-fluid">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 mb-lg-0 mb-4">
+              <div class="copyright text-center text-sm text-muted text-lg-end">
+                © <script>
+                  document.write(new Date().getFullYear())
+                </script>,
+                made with <i class="fa fa-heart"></i> by
+                <a href="#" class="font-weight-bold" target="_blank">Adam Group</a>
+                for a better web.
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+<!-- Rest Password Modal -->
+  <div class="modal fade" id="restPasswordModal" tabindex="-1" role="dialog" aria-labelledby="restPasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="restPasswordModalLabel">أعادة تعين كلمة المرور</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="closeModal">&times;</span> 
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">كلمة المرور الجديدة:</label>
+              <input type="text" class="form-control" id="newPassword" name="newPassword">
+            </div>
+            <input type="hidden" id="userIdRestPassword" name="userIdRestPassword">
+          </div>
+        </div>
+        <div class="modal-footer">
+           <button type="button" id="restPasswordBTN" class="btn btn-primary">حفظ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Attache bank statment modal -->
+  <div class="modal fade" id="attachFileModal" tabindex="-1" role="dialog" aria-labelledby="attachFileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="attachFileModalLabel">إرفاق كشف الحساب</h5>
+          <span aria-hidden="true" class="closeAttachModal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">اسم الملف:</label>
+            <input type="text" class="form-control" id="fileNamePreview" name="fileNamePreview">
+          </div>
+          <div class="form-group mt-3">
+            <label class="col-form-label">إرفاق ملف:</label>
+            <div id="dropZone" class="drop-zone">
+              <p>اسحب الملف هنا أو اضغط لاختيار ملف</p>
+              <input type="file" id="attachFileInput" name="attachFile" hidden>
+            </div>
+            <div id="filePreview" class="mt-2 text-muted"></div>
+          </div>
+          <input type="hidden" id="fileId" name="fileId">
+          <input type="hidden" id="userIdAttachFile" name="userIdAttachFile">
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="attachFileBTN" class="btn btn-primary">إرفاق</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- aattach container modal -->
+  <div class="modal fade" id="attachFileModal2" tabindex="-1" role="dialog" aria-labelledby="attachFileModal2Label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="attachFileModal2Label">إرفاق ملف</h5>
+          <span aria-hidden="true" class="closeAttachModal">&times;</span>
+        </div>
+        <div class="modal-body">
+          <div class="form-group" id="containerTypeDiv">
+            <label for="recipient-name" class="col-form-label">نوع الكونتينر :</label>
+            <select class="form-select"  id="containerType" > 
+              <option selected> </option>
+              <option value="0">شحن كلي</option>
+              <option value="1">شحن جزئي</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">اسم الملف:</label>
+            <input type="text" class="form-control" id="fileNamePreview" name="fileNamePreview">
+          </div>
+          <div class="form-group mt-3">
+            <label class="col-form-label">إرفاق ملف:</label>
+            <div id="dropZone" class="drop-zone">
+              <p>اسحب الملف هنا أو اضغط لاختيار ملف</p>
+              <input type="file" id="attachFileInput" name="attachFile" hidden>
+            </div>
+            <div id="filePreview" class="mt-2 text-muted"></div>
+          </div>
+          <input type="hidden" id="fileId" name="fileId">
+          <input type="hidden" id="userIdAttachFile" name="userIdAttachFile">
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="attachFileBTN" class="btn btn-primary">إرفاق</button>
+        </div>
+      </div>
+    </div>
+  </div> 
+
+<!-- Modal for Displaying Uploaded Files -->
+<div class="modal fade" id="uploadedFilesModal" tabindex="-1" role="dialog" aria-labelledby="uploadedFilesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadedFilesModalLabel">الملفات المرفوعة</h5>
+        <span aria-hidden="true" class="closeUploadFilesModal">&times;</span>
+      </div>
+      <div class="modal-body">
+        <ul class="nav nav-tabs" id="fileTabs">
+          <li class="nav-item">
+            <a class="nav-link active" id="container-tab" data-bs-toggle="tab" href="#container-files">ملفات الحاويات</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="bank-tab" data-bs-toggle="tab" href="#bank-files">كشوف الحسابات البنكية</a>
+          </li>
+        </ul>
+        
+        <div class="tab-content mt-3">
+          <!-- Container Files -->
+          <div class="tab-pane fade show active" id="container-files">
+            <div class="file-list" id="containerFiles"></div>
+          </div>
+
+          <!-- Bank Statement Files -->
+          <div class="tab-pane fade" id="bank-files">
+            <div class="file-list" id="bankFiles"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <!-- Create Customer Modal -->
+<div class="modal fade" id="createCustomerModal" tabindex="-1" aria-labelledby="createCustomerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="createCustomerModalLabel">إضافة عميل جديد</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div id="createCustomerForm">
+                  <div class="mb-3">
+                      <label for="customerName" class="form-label">الاسم</label>
+                      <input type="text" class="form-control" id="customerNameCreate" name="name" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="customerEmail" class="form-label">البريد الإلكتروني</label>
+                      <input type="email" class="form-control" id="customerEmailCreate" name="email" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="customerPhone" class="form-label">رقم الهاتف</label>
+                      <input type="text" class="form-control" id="customerPhoneCreate" name="phone" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="customerPassword" class="form-label">كلمة المرور</label>
+                      <input type="password" class="form-control" id="customerPasswordCreate" name="password" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="customerAddress" class="form-label">العنوان</label>
+                      <input type="text" class="form-control" id="customerAddressCreate" name="address" required>
+                  </div>
+                  <div class="mb-3">
+                      <label for="customerCity" class="form-label">المدينة</label>
+                      <input type="text" class="form-control" id="customerCityCreate" name="city" required>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" id="closeCreateModal" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                      <button type="submit" id="createCustomerBTN" class="btn btn-primary">إضافة العميل</button>
+                  </div>
+                </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<!-- Send Notification Modal -->
+<div class="modal fade" id="sendNotificationModal" tabindex="-1" aria-labelledby="sendNotificationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sendNotificationModalLabel">إرسال إشعار</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="sendNotificationForm">
+          <!-- Notification Type Selection -->
+          <div class="mb-3">
+            <label class="form-label">اختر نوع الإشعار:</label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="notificationType" id="typeA" value="A" checked>
+                <label class="form-check-label" for="typeA">زبائن الشحن الكلي</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="notificationType" id="typeB" value="B">
+                <label class="form-check-label" for="typeB">زبائن الشحن الجزئي</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="notificationType" id="typeC" value="C">
+                <label class="form-check-label" for="typeC">اختر الزبون</label>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Selection (Visible only if C is chosen) -->
+          <div class="mb-3 d-none" id="userSelection">
+            <label for="userList" class="form-label">اختر الزبائن:</label>
+            <select class="form-select select2" id="userList" multiple>
+            </select>
+          </div>
+
+          <!-- Notification Subject -->
+          <div class="mb-3">
+            <label for="notificationSubject" class="form-label">الموضوع</label>
+            <input type="text" class="form-control" id="notificationSubject" required>
+          </div>
+
+          <!-- Notification Body -->
+          <div class="mb-3">
+            <label for="notificationBody" class="form-label">المحتوى</label>
+            <textarea class="form-control" id="notificationBody" rows="3" required></textarea>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+            <button type="submit"id="sendNoficationBTN" class="btn btn-primary">إرسال الإشعار</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <!--   Core JS Files   -->
+  <script src="assets/js/core/popper.min.js"></script>
+  <script src="assets/js/core/bootstrap.min.js"></script>
+  <script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script src="assets/js/plugins/fullcalendar.min.js"></script>
+  <script src="assets/js/plugins/chartjs.min.js"></script>
+  <script type="module" src="assets/javascript/users2.js"></script>
+  <script type="module" src="assets/javascript/filedropzone.js"></script>
+  <script type="module" src="assets/javascript/logout.js"></script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+
+  <!-- Include jQuery & Select2 JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+  <!-- JavaScript to Handle the Toggle -->
+<script>
+    $(document).ready(function () {
+    // Initialize Select2 for dropdown
+    $(".select2").select2({
+      placeholder: "اختر الزبائن",
+      allowClear: true,
+      width: "100%",
+    });
+
+    // Handle show/hide of user selection
+    $("input[name='notificationType']").change(function () {
+      if ($("#typeC").is(":checked")) {
+        $("#userSelection").removeClass("d-none");
+      } else {
+        $("#userSelection").addClass("d-none");
+        $("#userList").val(null).trigger("change"); // Reset selection
+      }
+    });
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    const typeA = document.getElementById("typeA");
+    const typeB = document.getElementById("typeB");
+    const typeC = document.getElementById("typeC");
+    const userSelection = document.getElementById("userSelection");
+
+    function toggleUserSelection() {
+      userSelection.classList.toggle("d-none", !typeC.checked);
+    }
+
+    typeA.addEventListener("change", toggleUserSelection);
+    typeB.addEventListener("change", toggleUserSelection);
+    typeC.addEventListener("change", toggleUserSelection);
+  });
+</script>
+</body>
+
+</html>
