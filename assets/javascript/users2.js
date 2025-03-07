@@ -27,13 +27,14 @@ function displayCustomers(customers) {
         const customerItem = document.createElement('div');
         customerItem.classList.add('customer-item');
         customerItem.innerHTML = `
-            
             <img src="assets/img/team-3.jpg" alt="profile">
             <div>
                 <a href="#"> <div>${customer.name}</div> </a>
                 <small>${customer.phone}</small>
             </div>
         `;
+        customerItem.dataset.name = customer.name.toLowerCase(); // Store lowercase name for easy search
+
         const link = customerItem.querySelector('a');
         link.dataset.id = customer.id;
         link.dataset.name = customer.name;
@@ -42,33 +43,39 @@ function displayCustomers(customers) {
         link.dataset.city = customer.city;
         link.dataset.containers_count = customer.containers_count;
         link.addEventListener('click', function (event) {
-            event.preventDefault();  // Prevent any accidental navigation
+            event.preventDefault();
             fetchUploadedFiles(this, customer.id);
-            displayCustomerInfo(this);  // 'this' will correctly refer to <a>
-            
+            displayCustomerInfo(this);
         });
 
         customerList.appendChild(customerItem);
-
-
     });
 }
+
+// Filter function (runs when user types in search box)
+document.getElementById('customerSearch').addEventListener('input', function() {
+    const searchValue = this.value.toLowerCase();
+    const items = document.querySelectorAll('#customerList .customer-item');
+    items.forEach(item => {
+        const name = item.dataset.name; // Get the stored name
+        if (name.includes(searchValue)) {
+            item.style.display = '';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+});
 function fetchUsersDropDown(customers){
     console.log("Fetching users... into dropdown");
     const userList = document.getElementById('userList');
-    const userListForSearch = document.getElementById('userListForSearch');
+ 
     userList.innerHTML = '';
-    userListForSearch.innerHTML = '';
-    customers.forEach(customer => {
+     customers.forEach(customer => {
         const option = document.createElement('option');
-        const option2 = document.createElement('option');
         option.value = customer.id;
-        option2.value = customer.id;
         option.text = customer.name;
-        option2.text = customer.name;
         userList.add(option);
-        userListForSearch.add(option2);
-    });
+     });
 }
 window.displayCustomerInfo = function (element) {
     const customerId = element.dataset.id;
