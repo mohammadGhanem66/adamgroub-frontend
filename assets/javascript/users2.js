@@ -56,12 +56,18 @@ function displayCustomers(customers) {
 function fetchUsersDropDown(customers){
     console.log("Fetching users... into dropdown");
     const userList = document.getElementById('userList');
+    const userListForSearch = document.getElementById('userListForSearch');
     userList.innerHTML = '';
+    userListForSearch.innerHTML = '';
     customers.forEach(customer => {
         const option = document.createElement('option');
+        const option2 = document.createElement('option');
         option.value = customer.id;
+        option2.value = customer.id;
         option.text = customer.name;
+        option2.text = customer.name;
         userList.add(option);
+        userListForSearch.add(option2);
     });
 }
 window.displayCustomerInfo = function (element) {
