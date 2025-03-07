@@ -97,7 +97,12 @@ window.displayCustomerInfo = function (element) {
     document.getElementById('deleteCustomer').disabled = false;
     document.getElementById('createContainerBTN').disabled = false;
     document.getElementById('createBankStatmentBTN').disabled = false;
-
+    
+    // Filling the edit form.. !
+    document.getElementById('customerNameEdit').value = customerName;
+    document.getElementById('customerPhoneEdit').value = customerPhone;
+    document.getElementById('customerCityEdit').value = customerCity;
+    document.getElementById('customerAddressEdit').value = customerAddress;
 }
 
 window.openChangePasswordModal = function () {
@@ -446,6 +451,43 @@ attachFileBTN.addEventListener('click', async  function() {
         }
     } catch (error) {
         console.error('Error:', error);
+    }
+
+});
+
+const editCustomerBTN = document.getElementById('editCustomerBTN');
+editCustomerBTN.addEventListener('click', async  function() {
+    const userId = document.getElementById('customerId').value;
+    const apiUrl = serverUrl + `users/${userId}/update`;
+    const name = document.getElementById('customerNameEdit').value;
+     const phone = document.getElementById('customerPhoneEdit').value;
+    const address = document.getElementById('customerAddressEdit').value;
+    const city = document.getElementById('customerCityEdit').value;
+    if(name == '' || phone == '' || address == '' || city == '') {
+        Swal.fire('الرجاء ادخال جميع البيانات');
+        return;
+    }
+    const body = {
+        name: name,
+         phone: phone,
+        address: address,
+        city: city
+    };
+    try {
+        const response = await apiPostOrPut(apiUrl, 'PATCH', body);
+        console.log(response);
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "تم تعديل الزبون بنجاح",
+            showConfirmButton: false,
+            timer: 1500
+        });
+        document.getElementById('closeEditModal').click();
+        fetchCustomers();
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Saver issue, contact support');
     }
 
 });
