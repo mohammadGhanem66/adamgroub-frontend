@@ -168,6 +168,10 @@ window.openChangePasswordModal = function () {
     document.getElementById('customerAddress').innerHTML = "<strong>العنوان:</strong> " + '-';
     document.getElementById('containersCount').innerHTML = "<strong>عدد الحاويات:</strong> " + '-';
     document.getElementById('customerId').value = '';
+    document.getElementById("containerFiles2").innerHTML = "";
+    document.getElementById("bankstatmentTitle").innerHTML = "";
+    document.getElementById('bankstatmentIcon').src = '';
+    document.getElementById('bankstatmentIcon').alt = '';
  }
 
  window.fetchUploadedFiles = async function (element,userId) {
@@ -191,7 +195,8 @@ window.openChangePasswordModal = function () {
     const bankStatmentDiv = document.getElementById('bankstatmentTitle');
     containerFilesDiv.innerHTML = "";
     bankStatmentDiv.innerHTML = "";
-
+    document.getElementById('bankstatmentIcon').src = '';
+    document.getElementById('bankstatmentIcon').alt = '';
     files.forEach(file => {
         const fileElement = createFileElement(file);
         if (file.type === "container") {
