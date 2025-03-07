@@ -188,13 +188,24 @@ window.openChangePasswordModal = function () {
 
  function displayFiles(files) {
     const containerFilesDiv = document.getElementById("containerFiles2"); // Updated ID
+    const bankStatmentDiv = document.getElementById('bankstatmentTitle');
     containerFilesDiv.innerHTML = "";
+    bankStatmentDiv.innerHTML = "";
 
     files.forEach(file => {
         const fileElement = createFileElement(file);
         if (file.type === "container") {
             containerFilesDiv.appendChild(fileElement);
-        } // TODO : set the bank statment file
+        }else {
+           
+            bankStatmentDiv.innerHTML = file.name;
+            document.getElementById('bankstatmentIcon').src = getFileIcon(file.extension);
+            document.getElementById('bankstatmentIcon').alt = file.extension;
+            bankStatmentDiv.style.cursor = "pointer";
+            bankStatmentDiv.addEventListener("click", () => {
+                window.open(file.url, "_blank");
+            });
+        }
         
     });
 }
@@ -347,6 +358,76 @@ sendNoficationBTN.addEventListener('click', async  function() {
     } catch (error) {
         console.error('Error:', error);
         Swal.fire('خطأ في الإرسال، الرجاء المحاولة مرة أخرى');
+    }
+
+});
+
+const createBankStatmentBTN = document.getElementById('createBankStatmentBTN');
+createBankStatmentBTN.addEventListener('click', async  function() {
+    document.getElementById('containerTypeDiv').style.display = 'none';
+    document.getElementById('fileType').value = 'Bank Statement';
+    const attachFileModal = new bootstrap.Modal(document.getElementById('attachFileModal'));
+    attachFileModal.show();
+});
+
+const createContainerBTN = document.getElementById('createContainerBTN');
+createContainerBTN.addEventListener('click', async  function() {
+    document.getElementById('containerTypeDiv').style.display = 'block';
+    document.getElementById('fileType').value = 'Container';
+    const attachFileModal = new bootstrap.Modal(document.getElementById('attachFileModal'));
+    attachFileModal.show();
+});
+
+const attachFileBTN = document.getElementById('attachFileBTN');
+attachFileBTN.addEventListener('click', async  function() {
+    const userIdAttachFile = document.getElementById('customerId').value;
+    const fileNamePreview = document.getElementById('fileNamePreview').value;
+    const containerType = document.getElementById('containerType').value;
+    const fileTypeSwitch = document.getElementById('fileTypeSwitch');
+    const switchValue = document.getElementById('fileType').value
+    console.log('Selected File Type:', switchValue);
+    const fileInput = document.getElementById('attachFileInput');
+    const selectedFile = fileInput.files[0];
+    if (!selectedFile || fileNamePreview == '') {
+        Swal.fire('الرجاء اختيار الملف وادخل اسم الملف');
+        return;
+    }
+    var apiUrl ="";
+    const formData = new FormData();
+    if(switchValue == 'Container'){
+        apiUrl = serverUrl + `users/${userIdAttachFile}/containers`;
+        formData.append('file_path', selectedFile);
+        formData.append('file_name', fileNamePreview);
+        formData.append('type', containerType);
+    }else {
+        apiUrl = serverUrl + `users/${userIdAttachFile}/account-statments`;
+        formData.append('file_path', selectedFile);
+        formData.append('file_name', fileNamePreview);
+    }
+    const token = localStorage.getItem('accessToken');
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST', // Use POST with `_method` for Laravel compatibility
+            body: formData,
+            headers: {
+                'Authorization': `Bearer ${token}`,
+              },
+        });
+
+        const result = await response.json();
+        console.log(result);
+        if (response.ok) {
+            Swal.fire("تم ارفاق الملف", "تم ارفاق الملف بنجاح", "success");
+            document.getElementById('fileNamePreview').value = '';
+            document.getElementById('attachFileInput').value = '';
+            document.getElementById('fileType').value = '';
+            document.getElementById('filePreview').innerHTML = '';
+        } else {
+            console.error('Error:', result);
+            Swal.fire("حدث خلل", "يوجد خلل في الملف المرفق", "danger");
+        }
+    } catch (error) {
+        console.error('Error:', error);
     }
 
 });
