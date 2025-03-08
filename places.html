@@ -353,6 +353,10 @@ td .dropdown-toggle {
                       <input type="text" class="form-control" id="placeCountry" name="placeCountry" required>
                   </div>
                   <div class="mb-3">
+                    <label for="customerPhone" class="form-label">رابط الموقع على الخريطة</label>
+                    <input type="text" class="form-control" id="placeURL" name="placeURL" required>
+                </div>
+                  <div class="mb-3">
                     <label for="customerPhone" class="form-label">اسم الصورة</label>
                     <input type="text" class="form-control" id="fileNamePreview" name="fileNamePreview" required>
                 </div>
@@ -376,31 +380,39 @@ td .dropdown-toggle {
 </div>
 
   <!-- Edit Place Modal -->
-  <div class="modal fade" id="createPlaceModal" tabindex="-1" aria-labelledby="createPlaceModalLabel" aria-hidden="true">
+  <div class="modal fade" id="editPlaceModal" tabindex="-1" aria-labelledby="editPlaceModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createPlaceModalLabel">تعديل مكان </h5>
+                <h5 class="modal-title" id="editPlaceModalLabel">تعديل مكان </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div id="createCustomerForm">
                     <div class="mb-3">
                         <label for="customerName" class="form-label">الاسم</label>
-                        <input type="text" class="form-control" id="placeName" name="placeNameEdit" required>
+                        <input type="text" class="form-control" id="placeNameEdit" name="placeNameEdit" required>
                     </div>
                     <div class="mb-3">
+                      <label for="customerEmail" class="form-label">الوصف</label>
+                      <input type="text" class="form-control" id="placeDescriptionEdit" name="placeDescriptionEdit" required>
+                  </div>
+                    <div class="mb-3">
                         <label for="customerEmail" class="form-label">المدينة</label>
-                        <input type="text" class="form-control" id="placeCity" name="placeCityEdit" required>
+                        <input type="text" class="form-control" id="placeCityEdit" name="placeCityEdit" required>
                     </div>
                     <div class="mb-3">
                         <label for="customerPhone" class="form-label">الدولة</label>
-                        <input type="text" class="form-control" id="placeCountry" name="placeCountryEdit" required>
+                        <input type="text" class="form-control" id="placeCountryEdit" name="placeCountryEdit" required>
                     </div>
-  
+                    <div class="mb-3">
+                      <label for="customerPhone" class="form-label">رابط الموقع على الخريطة</label>
+                      <input type="text" class="form-control" id="placeURLEdit" name="placeURLEdit" required>
+                  </div>
+                  <input type="hidden" id="placeID" name="placeID">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                        <button type="submit" id="createPlaceBTN" class="btn btn-primary"> تعديل</button>
+                        <button type="submit" id="editPlaceBTN" class="btn btn-primary"> تعديل</button>
                     </div>
                   </div>
             </div>

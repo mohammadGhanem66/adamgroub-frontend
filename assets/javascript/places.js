@@ -45,6 +45,7 @@ function displayPlaces(places) {
                 </a>
                 <div class="dropdown-content">
                     <a href="javascript:deletePlace(this, ${place.id});">❌ حذف</a>
+                    <a href="javascript:OpenEditPlace(this, ${place.id}, '${place.name}', '${place.city}', '${place.country}', '${place.description}', '${place.location_url}' );">📝 تعديل</a>
                 </div>
             </td>
         `;
@@ -65,10 +66,52 @@ function displayPlaces(places) {
             dropdownContent.classList.add('show');
             }
         });
+        
         placesTableBody.appendChild(row);
     });
+    const emptyRow = document.createElement('tr');
+    emptyRow.innerHTML = `<td colspan="4" style="height: 50px;"></td>`; // Empty but visible
+    placesTableBody.appendChild(emptyRow);
 }
+window.OpenEditPlace = async function (element, placeId, placeName, placeCity, placeCountry, placeDiscription, placeURL) {
+    document.getElementById('placeNameEdit').value = placeName;
+    document.getElementById('placeCityEdit').value = placeCity;
+    document.getElementById('placeDescriptionEdit').value = placeDiscription;
+    document.getElementById('placeURLEdit').value = placeURL;
+    document.getElementById('placeCountryEdit').value = placeCountry;
+    document.getElementById('placeID').value = placeId;
+    const editPlaceModal = new bootstrap.Modal(document.getElementById('editPlaceModal'));
+    editPlaceModal.show();
+}
+const editPlaceBTN = document.getElementById('editPlaceBTN');
+editPlaceBTN.addEventListener('click', async  function() {
+    const placeName = document.getElementById('placeNameEdit').value;
+    const placeCity = document.getElementById('placeCityEdit').value;
+    const placeDiscription = document.getElementById('placeDescriptionEdit').value;
+    const placeURL = document.getElementById('placeURLEdit').value;
+    const placeCountry = document.getElementById('placeCountryEdit').value;
+    const placeID = document.getElementById('placeID').value;
+    var apiUrl = serverUrl + 'places/' + placeID;
+    const body = {
+        name : placeName,
+        city : placeCity,
+        description : placeDiscription,
+        location_url : placeURL,
+        country : placeCountry  
+    };
+    const response = await apiPostOrPut(apiUrl, 'PUT', body);
+    Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "تم تعديل المكان بنجاح",
+        showConfirmButton: false,
+        timer: 1500
+    });
+    const editPlaceModal = new bootstrap.Modal(document.getElementById('editPlaceModal'));
+    editPlaceModal.hide();
+    fetchPlaces();
 
+});
 // Close dropdown if clicking outside of the table row
 document.addEventListener('click', function (e) {
     const allDropdowns = document.querySelectorAll('.dropdown-content');
@@ -84,6 +127,7 @@ createPlaceBTN.addEventListener('click', async  function() {
     const placeName = document.getElementById('placeName').value;
     const placeCity = document.getElementById('placeCity').value;
     const placeDiscription = document.getElementById('placeDiscription').value;
+    const placeURL = document.getElementById('placeURL').value;
     const placeCountry = document.getElementById('placeCountry').value;
     const fileNamePreview = document.getElementById('fileNamePreview').value;
     const fileInput = document.getElementById('attachFileInput');
@@ -104,6 +148,7 @@ createPlaceBTN.addEventListener('click', async  function() {
     formData.append('city', placeCity);
     formData.append('country', placeCountry);
     formData.append('description', placeDiscription);
+    formData.append('location_url', placeURL);
     const token = localStorage.getItem('accessToken');
     try {
         const response = await fetch(apiUrl, {
@@ -116,6 +161,7 @@ createPlaceBTN.addEventListener('click', async  function() {
         const result = await response.json();
         console.log(result);
         if (response.ok) {
+            document.getElementById('placeURL').value = '';
             document.getElementById('placeName').value = '';
             document.getElementById('placeCity').value = '';
             document.getElementById('placeCountry').value = '';

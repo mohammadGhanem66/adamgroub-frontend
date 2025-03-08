@@ -72,6 +72,9 @@ function displayAds(ads) {
         });
         adsTableBody.appendChild(row);
     });
+    const emptyRow = document.createElement('tr');
+    emptyRow.innerHTML = `<td colspan="4" style="height: 50px;"></td>`; // Empty but visible
+    adsTableBody.appendChild(emptyRow);
 }
 
 // Close dropdown if clicking outside of the table row
