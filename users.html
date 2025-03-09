@@ -22,6 +22,7 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <style>
         body {
@@ -329,11 +330,21 @@
       <div class="row">
         <!-- Right Sidebar - Customers List -->
         <div class="col-md-3">
-            <h5 class="section-title">الزبائن</h5>
-            <input type="text" id="customerSearch" class="form-control mb-2" placeholder="بحث عن زبون...">
-            <div class="customer-list" id="customerList">
-            </div>
-        </div>
+          <div class="d-flex align-items-center justify-content-between">
+              <h5 class="section-title mb-0">الزبائن</h5>
+              <div>
+                  <button class="btn btn-sm btn-primary me-2" id="addCustomerBtn" data-bs-toggle="modal" data-bs-target="#createCustomerModal">
+                      <span class="material-icons">add</span>
+                  </button>
+                  <button class="btn btn-sm btn-secondary" id="notificationsBtn" data-bs-toggle="modal" data-bs-target="#sendNotificationModal">
+                      <span class="material-icons">notifications</span>
+                  </button>
+              </div>
+          </div>
+          <input type="text" id="customerSearch" class="form-control my-2" placeholder="بحث عن زبون...">
+          <div class="customer-list" id="customerList"></div>
+      </div>
+      
 
         <!-- Main Content - Split into 2 columns inside the main area -->
         <div class="col-md-9">
@@ -377,8 +388,6 @@
                         <br>
                         <div class="mt-3 d-flex gap-2 mt-5">
                           <button class="btn btn-custom"  id="createBankStatmentBTN" disabled> اضافة كشف حساب جديد</button>
-                          <button class="btn btn-custombtn" data-bs-toggle="modal" data-bs-target="#createCustomerModal">اضافة زبون جديد</button>
-                          <button class="btn btn-custombtn2" data-bs-toggle="modal" data-bs-target="#sendNotificationModal">ارسال اشعارات</button>
                         </div>
 
                     </div>
