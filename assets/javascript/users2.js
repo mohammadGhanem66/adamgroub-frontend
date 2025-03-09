@@ -23,7 +23,7 @@ function fetchCustomers(){
 function displayCustomers(customers) {
     const customerList = document.getElementById('customerList');
     customerList.innerHTML = '';
-    customers.forEach(customer => {
+    customers.forEach((customer, index) => {
         const customerItem = document.createElement('div');
         customerItem.classList.add('customer-item');
         customerItem.innerHTML = `
@@ -35,20 +35,29 @@ function displayCustomers(customers) {
         `;
         customerItem.dataset.name = customer.name.toLowerCase(); // Store lowercase name for easy search
 
-        const link = customerItem.querySelector('a');
-        link.dataset.id = customer.id;
-        link.dataset.name = customer.name;
-        link.dataset.phone = customer.phone;
-        link.dataset.address = customer.address;
-        link.dataset.city = customer.city;
-        link.dataset.containers_count = customer.containers_count;
-        link.addEventListener('click', function (event) {
-            event.preventDefault();
+       // Store data attributes on the div itself
+       customerItem.dataset.id = customer.id;
+       customerItem.dataset.name = customer.name;
+       customerItem.dataset.phone = customer.phone;
+       customerItem.dataset.address = customer.address;
+       customerItem.dataset.city = customer.city;
+       customerItem.dataset.containers_count = customer.containers_count;
+
+       // Make the whole div clickable
+       customerItem.addEventListener('click', function () {
+            // Remove "active" class from all items
+            document.querySelectorAll('.customer-item').forEach(item => item.classList.remove('active'));
+            // Add "active" class to the clicked item
+            this.classList.add('active');
             fetchUploadedFiles(this, customer.id);
             displayCustomerInfo(this);
-        });
+       });
 
         customerList.appendChild(customerItem);
+         // **Auto-select & trigger click on the first customer**
+         if (index === 0) {
+            setTimeout(() => customerItem.click(), 0); // Ensure it triggers after elements are added
+        }
     });
 }
 
