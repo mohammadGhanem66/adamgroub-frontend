@@ -11,7 +11,7 @@ if(!accessToken || accessToken == null || role == 0){
 function fetchCustomers(){
     const apiUrl = serverUrl + `users`;
     apiFetch(apiUrl).then(data => { 
-        console.log(data.users);
+        //console.log(data.users);
         fetchUsersDropDown(data.users);
         displayCustomers(data.users);
         
@@ -75,7 +75,7 @@ document.getElementById('customerSearch').addEventListener('input', function() {
     });
 });
 function fetchUsersDropDown(customers){
-    console.log("Fetching users... into dropdown");
+    //console.log("Fetching users... into dropdown");
     const userList = document.getElementById('userList');
  
     userList.innerHTML = '';
@@ -164,7 +164,7 @@ window.openChangePasswordModal = function () {
              const apiUrl = serverUrl + `users/${id}`;
              try {
                  const response = await apiPostOrPut(apiUrl, 'DELETE', {});
-                 console.log(response);
+                 //console.log(response);
              } catch (error) {
                  console.error('Error :', error);
                  alert('Saver issue, contact support');
@@ -202,11 +202,11 @@ window.openChangePasswordModal = function () {
  }
 
  window.fetchUploadedFiles = async function (element,userId) {
-     console.log("Fetching files for user ID:", userId);
+     //console.log("Fetching files for user ID:", userId);
      try {
          const apiUrl = serverUrl + "users/" + userId + "/uploaded-files";
          apiFetch(apiUrl).then(data => { 
-             console.log(data.files);
+             //console.log(data.files);
              displayFiles(data.files);
          }).catch(error => {
              console.error('Error fetching users:', error);
@@ -283,8 +283,8 @@ function createFileElement(file) {
 function getFileIcon(extension) {
     const fileIcons = {
         "pdf": "https://cdn-icons-png.flaticon.com/512/337/337946.png",
-        "doc": "https://cdn-icons-png.flaticon.com/512/732/732220.png",
-        "docx": "https://cdn-icons-png.flaticon.com/512/732/732220.png",
+        "doc": "https://cdn-icons-png.flaticon.com/512/136/136521.png",
+        "docx": "https://cdn-icons-png.flaticon.com/512/136/136521.png",
         "xls": "https://cdn-icons-png.flaticon.com/512/732/732220.png",
         "xlsx": "https://cdn-icons-png.flaticon.com/512/732/732220.png",
         "png": "https://cdn-icons-png.flaticon.com/512/732/732212.png",
@@ -297,7 +297,7 @@ function getFileIcon(extension) {
 
 const createCustomerBTN = document.getElementById('createCustomerBTN');
 createCustomerBTN.addEventListener('click', async  function() {
-    console.log("Create Customer Button Clicked");
+    //console.log("Create Customer Button Clicked");
     const apiUrl = serverUrl + 'users';
     const name = document.getElementById('customerNameCreate').value;
     const email = document.getElementById('customerEmailCreate').value;
@@ -320,6 +320,21 @@ createCustomerBTN.addEventListener('click', async  function() {
     try {
         const response = await apiPostOrPut(apiUrl, 'POST', body);
         console.log(response);
+        console.log(response.status);
+        // Parse the `message` JSON string
+        const errorData = JSON.parse(response.message);
+
+        var errorMSG = "";
+        if (errorData.errors.phone ) {
+            errorMSG = "..رقم الهاتف يجب ان يكون صحيح وغير مكرر";
+        }
+        if (errorData.errors.email) {
+            errorMSG += "..البريد الالكتروني يجب ان يكون صحيح وغير مكرر";
+        }
+        if(response.status == 422 || response.status == 400) {
+            Swal.fire(errorMSG);
+            return;
+        }
         document.getElementById('customerNameCreate').value = '';
         document.getElementById('customerEmailCreate').value = '';
         document.getElementById('customerPhoneCreate').value = '';
@@ -424,9 +439,13 @@ attachFileBTN.addEventListener('click', async  function() {
         Swal.fire('الرجاء اختيار الملف وادخل اسم الملف');
         return;
     }
+    if (selectedFile.size === 0) {
+        Swal.fire('الملف المرفق فارغ, الرجاء اختيار ملف اخر ..!');
+        return;
+    }
     var apiUrl ="";
     const formData = new FormData();
-    if(switchValue == 'Container'){
+    if(switchValue == 'Container'){ 
         apiUrl = serverUrl + `users/${userIdAttachFile}/containers`;
         formData.append('file_path', selectedFile);
         formData.append('file_name', fileNamePreview);
@@ -454,9 +473,10 @@ attachFileBTN.addEventListener('click', async  function() {
             document.getElementById('attachFileInput').value = '';
             document.getElementById('fileType').value = '';
             document.getElementById('filePreview').innerHTML = '';
+            document.getElementById('closeAttachModal').click();
         } else {
             console.error('Error:', result);
-            Swal.fire("حدث خلل", "يوجد خلل في الملف المرفق", "danger");
+            Swal.fire("حدث خلل", "يوجد خلل في الملف المرفق", "error");
         }
     } catch (error) {
         console.error('Error:', error);
@@ -484,7 +504,7 @@ editCustomerBTN.addEventListener('click', async  function() {
     };
     try {
         const response = await apiPostOrPut(apiUrl, 'PATCH', body);
-        console.log(response);
+        //console.log(response);
         Swal.fire({
             position: "center",
             icon: "success",

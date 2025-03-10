@@ -58,7 +58,9 @@ async function apiPostOrPut(apiUrl, method, body) {
     // Check if response body is JSON
     const contentType = response.headers.get('Content-Type') || '';
     if (contentType.includes('application/json')) {
-      return await response.json();
+      // need to return the response and status ! 
+      return { message: await response.text(), status: response.status };
+     // return await response.json() ;
     } else {
       return { message: await response.text() }; // Handle non-JSON response
     }
