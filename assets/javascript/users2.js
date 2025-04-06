@@ -262,18 +262,22 @@ function createFileElement(file) {
     const nameSpan = document.createElement("span");
     nameSpan.textContent = file.name;
 
+    const trackingNumberSpan = document.createElement("span");
+    trackingNumberSpan.textContent = file.tracking_number ? file.tracking_number : '-';
+
     const fileIcon = document.createElement("img");
     fileIcon.classList.add("file-icon");
     fileIcon.src = getFileIcon(file.extension);  // Use your existing icon logic
     fileIcon.alt = file.extension;
 
     fileDiv.appendChild(dateSpan);
+    fileDiv.appendChild(trackingNumberSpan);
     fileDiv.appendChild(nameSpan);
     fileDiv.appendChild(fileIcon);
 
     // Optional: If you want to make the whole item clickable to download/view the file
-    fileDiv.style.cursor = "pointer";
-    fileDiv.addEventListener("click", () => {
+    fileIcon.style.cursor = "pointer";
+    fileIcon.addEventListener("click", () => {
         window.open(file.url, "_blank");
     });
 
@@ -429,6 +433,7 @@ const attachFileBTN = document.getElementById('attachFileBTN');
 attachFileBTN.addEventListener('click', async  function() {
     const userIdAttachFile = document.getElementById('customerId').value;
     const fileNamePreview = document.getElementById('fileNamePreview').value;
+    const tracking_number = document.getElementById('fileTrackingNumber').value;
     const containerType = document.getElementById('containerType').value;
     const fileTypeSwitch = document.getElementById('fileTypeSwitch');
     const switchValue = document.getElementById('fileType').value
@@ -450,10 +455,12 @@ attachFileBTN.addEventListener('click', async  function() {
         formData.append('file_path', selectedFile);
         formData.append('file_name', fileNamePreview);
         formData.append('type', containerType);
+        formData.append('tracking_number', tracking_number);
     }else {
         apiUrl = serverUrl + `users/${userIdAttachFile}/account-statments`;
         formData.append('file_path', selectedFile);
         formData.append('file_name', fileNamePreview);
+        formData.append('tracking_number', tracking_number);
     }
     const token = localStorage.getItem('accessToken');
     try {
@@ -471,6 +478,7 @@ attachFileBTN.addEventListener('click', async  function() {
             Swal.fire("تم ارفاق الملف", "تم ارفاق الملف بنجاح", "success");
             document.getElementById('fileNamePreview').value = '';
             document.getElementById('attachFileInput').value = '';
+            document.getElementById('fileTrackingNumber').value = '';
             document.getElementById('fileType').value = '';
             document.getElementById('filePreview').innerHTML = '';
             document.getElementById('closeAttachModal').click();
